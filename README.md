@@ -4,8 +4,9 @@ The goal of this section is to record an HTML and CSS cheat-sheet for a future r
 I'll keep things barebones for my own understanding while providing some reference links if I want to explore other niche areas further.
 
 ## Table of Contents
-    - [HTML Journey Notes](html-journey-notes)
-        - [Table of Contents](table-of-contents)
+- [HTML Journey Notes](html-journey-notes)
+    - [Table of Contents](table-of-contents)
+        - [Learning Process](#learning-process)
 
 ### Learning Process
 1. #### *Documentation*
