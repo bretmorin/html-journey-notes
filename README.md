@@ -1,13 +1,13 @@
+
 # HTML Journey Notes
 The goal of this section is to record an HTML and CSS cheat-sheet for a future reference guide so I don't have to rely on a mass amount of bookmarks. 
 I'll keep things barebones for my own understanding while providing some reference links if I want to explore other niche areas further.
 
 ## Table of Contents
-    * [HTML Journey Notes] (#html-journey-notes)
-        - [Learning Process] (#learning-process)
-        - Test
+    - [HTML Journey Notes](html-journey-notes)
+        - [Table of Contents](table-of-contents)
 
-## Learning Process
+### Learning Process
 1. #### *Documentation*
     * Go through Andrei Udemy Course
         - https://www.udemy.com/course/the-complete-web-developer-zero-to-mastery
