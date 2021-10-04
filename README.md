@@ -3,7 +3,9 @@ The goal of this section is to record an HTML and CSS cheat-sheet for a future r
 I'll keep things barebones for my own understanding while providing some reference links if I want to explore other niche areas further.
 
 ## Table of Contents
-1. [Learning Process] (github.com/bread01/html-journey-notes#learning-process)
+    * [HTML Journey Notes] (#html-journey-notes)
+        - [Learning Process] (#learning-process)
+        - Test
 
 ## Learning Process
 1. #### *Documentation*
