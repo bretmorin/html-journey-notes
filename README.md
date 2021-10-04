@@ -6,7 +6,7 @@ I'll keep things barebones for my own understanding while providing some referen
 1. [Documentation] (#Documentation)
 
 ## Learning Process
-1. #### *Documentation*
+1. #### *Documentation* <a name="Documentation"></a>
     * Go through Andrei Udemy Course
         - https://www.udemy.com/course/the-complete-web-developer-zero-to-mastery
     * Go through The Odin Project recommended readings
