@@ -4,13 +4,14 @@ The goal of this section is to record an HTML and CSS cheat-sheet for a future r
 I'll keep things barebones for my own understanding while providing some reference links if I want to explore other niche areas further.
 
 ## Table of Contents
-- [HTML Journey Notes](html-journey-notes)
-    - [Table of Contents](table-of-contents)
+- [HTML Journey Notes](#html-journey-notes)
+    - [Table of Contents](#table-of-contents)
         - [Learning Process](#learning-process)
+    - [Section 1: ](#)
 
 ### Learning Process
-1. #### *Documentation*
-    * Go through Andrei Udemy Course
+1. #### ***Documentation***
+    - Go through Andrei Udemy Course
         - https://www.udemy.com/course/the-complete-web-developer-zero-to-mastery
-    * Go through The Odin Project recommended readings
+    - Go through The Odin Project recommended readings
         - https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/introduction-to-html-and-css
