@@ -30,10 +30,32 @@ I'll keep things barebones for my own understanding while providing some referen
         - Thus almost everything needs an opening and closing tag
         - Using the correct tag with certain elements is important for SEO
         - https://developer.mozilla.org/en-US/docs/Web/HTML/Element
-2. #### ***HTML Page Setup***
+2. #### ***HTML Basic Page Setup***
     - The homepage should always be named index.html as servers will look for it by default
     - The first line should declare a doctype. In HTML, this would be
     ```
     <!DOCTYPE html>
     ```
-    - 
+    - After declaring a doctype, we have to put everything within the HTML container
+    ```
+    <html>
+    </html>
+    ```
+    - In the page header, we will put metadata that is not viewable to the user
+    ```
+    <head></head>
+    ```
+    - Within the head, there should always be a Title element. This is used to give the page title for the user. Otherwise it would just default to the page name of index.html
+    ```
+    <title></title>
+    ```
+    - Within the head we have to specify the character set encoding of the page so that it displays different symbols and characters
+    ```
+    <meta charset="utf-8"/>
+    ```
+    - Now we have to add a body element where all readable text will go. This will be after the header but within the html element
+    ```
+    <body></body>
+    ```
+
+    
