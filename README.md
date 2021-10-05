@@ -110,7 +110,7 @@ I'll keep things barebones for my own understanding while providing some referen
         </ol>
         ```
 4. #### ***HTML Links and Images***
-    -   Utilize the anchor element to create a link
+    - Creating Links: Utilize the anchor element to create a link
         ```
         <a></a>
         ```
@@ -128,4 +128,24 @@ I'll keep things barebones for my own understanding while providing some referen
         ```
         <a href="pages/about.html">About</a>
         ```
-    - Images
+    - Images: Similar to page links, we utilize the img element, but use the src attribute instead of href. The biggest difference is that no closing tag is needed.
+        ```
+        <img src="www.linkhere.com/image.png"> 
+        ```
+        - This can be done with both absolute and relative paths
+            ```
+            absolute: <img src="www.linkhere.com/image.png"> 
+            relative: <img src="images/dog.jpg">
+            ```
+        - Paths can be a bit tricky. Using the above example, if we wanted to use the dog image but we were in the about page, which is in it's own folder. To go up one level in folder heirarchy, we use 2 dots like so: ../
+            ```
+            <img src="../images/dog.jpg">
+            ```
+        - To put meta data on the image, for both SEO and accessibility, we use 'alt' attribute right after the img location
+            ```
+            <img src="www.linkhere.com/img.png" alt="this is a cool image"> 
+            ```
+        - Differences in image types and when to use them:
+            - PNG: Ideal for icons, technical diagrams, logos etc as they utilize colors and opacity better than JPG, but are larger in size.
+            - SVG: Vector is ideal for all the same thing as PNG, as they scale without losing quality, making them ideal for responsive design. First choice in those scenarios, but not always available. The only downside is text scaling, which can be solved by converting to outlines using Sketch or Illustrator.
+            - JPG: Ideal for photos due to file size scaling, but does not show transparent pixels. 
