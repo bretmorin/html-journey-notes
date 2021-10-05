@@ -73,4 +73,27 @@ I'll keep things barebones for my own understanding while providing some referen
     </html>
     ```
 3. #### ***HTML Foundations***
+    - Commenting in HTML: 
+    ```
+    <!-- this is a comment 
+    -->
+    ```
+    - If working within the <body> element, it will just output 1 long line of text without proper formatting. 
+    - Paragraph: <p></p>: will add a new line after the closing tag
+    - Headings: <h1></h1> through <h6>: Simply creating a hierarchy
+    - Strong: <strong></strong>: makes text bold, but in a way that affects accessibility, as it marks the text as being important in things like screen readers.
+    - Em: <em></em>: same thing as strong, but for italicized text. Creates an emphasis on a certain text.
+    - Lists:
+        - Unordered: bullet points
+        ```
+        <ul>
+            <li> item 1 </li>
+        </ul>
+        ```
+        - Ordered: numbers
+        ```
+        <ol>
+            <li> item 1 </li>
+        </ol>
+        ```
     - 
