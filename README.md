@@ -78,7 +78,8 @@ I'll keep things barebones for my own understanding while providing some referen
     <!-- this is a comment 
     -->
     ```
-    - If working within the body element, it will just output 1 long line of text without proper formatting. 
+    - **If working within the body element with no other elements inside, it will just output 1 long line of text without proper formatting.** 
+
     - Paragraph: will add a new line after the closing tag
         ```
         <p></p>
@@ -108,4 +109,23 @@ I'll keep things barebones for my own understanding while providing some referen
             <li> item 1 </li>
         </ol>
         ```
-    - 
+4. #### ***HTML Links and Images***
+    -   Utilize the anchor element to create a link
+        ```
+        <a></a>
+        ```
+        - We now have to add an attribute to the anchor tag to tell it where to go. An attribute is made of two parts: a name and a value. In this case, we add a Hyperlink reference (href) to tell it where to go
+        ```
+        <a href="https://www.theodinproject.com/about">click me</a>
+        ```
+        - **By default, anchor tags have a blue color and underline.**
+        - **This is called an Absolute link**
+        - For Internal, i.e. Relative links, we reference the filename path. If there is another HTML file in the same folder to reference titled 'about.html', it would be:
+        ```
+        <a href="about.html">About</a>
+        ```
+        The same file in a folder called 'Pages' in the same directory would be:
+        ```
+        <a href="pages/about.html">About</a>
+        ```
+    - Images
