@@ -30,8 +30,9 @@ I'll keep things barebones for my own understanding while providing some referen
         - Thus almost everything needs an opening and closing tag
         - Using the correct tag with certain elements is important for SEO
         - https://developer.mozilla.org/en-US/docs/Web/HTML/Element
-2. #### ***HTML Basic Page Setup***
+2. #### ***HTML Boilerplate Page Setup***
     - The homepage should always be named index.html as servers will look for it by default
+    - **To trigger all the below in VScode, just type "!" without the quotes**
     - The first line should declare a doctype. In HTML, this would be
     ```
     <!DOCTYPE html>
@@ -57,5 +58,19 @@ I'll keep things barebones for my own understanding while providing some referen
     ```
     <body></body>
     ```
+    - After all of this, we'll have the following setup:
+    ```
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8"/>
+            <title>My First Webpage</title>
+        </head>
 
-    
+        <body>
+            Hello World
+        </body>
+    </html>
+    ```
+3. #### ***HTML Foundations***
+    - 
