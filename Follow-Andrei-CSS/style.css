@@ -1,0 +1,14 @@
+body {
+    background-image: url(rott.jpeg);
+    background-size: cover;
+}
+
+h2 {
+    color: red;
+    text-align: center;
+}
+
+li {
+    list-style: none;
+    display: inline-block;
+}
