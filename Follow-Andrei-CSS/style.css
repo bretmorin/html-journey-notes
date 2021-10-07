@@ -3,7 +3,7 @@ body {
     background-size: cover;
 }
 
-h2 {
+h2, p {
     color: red;
     text-align: center;
 }
@@ -11,4 +11,8 @@ h2 {
 li {
     list-style: none;
     display: inline-block;
+}
+
+.webtext {
+    border: 5px dashed green;
 }

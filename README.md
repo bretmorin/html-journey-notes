@@ -281,7 +281,6 @@ I'll keep things barebones for my own understanding while providing some referen
             color: red;
             text-align: center;
             border: 5px solid purple;
-
         }
         ```
     - Adding background images
@@ -302,5 +301,45 @@ I'll keep things barebones for my own understanding while providing some referen
         li {
             list-style: none;
             display: inline-block;
+        }
+        ```
+3. #### ***CSS Selectors***
+    - we can add multiple selectors to our css
+        ```
+        h2, p {
+            color: red;
+            text-align: center;
+            border: 5px solid purple;
+        }
+        ```
+    - Selectors are powerful as we can create our own elements, in that we can define a section that already might have a CSS element, but there are certain ones that we want excluded from the main CSS properties into their own definition
+        ```
+        In the HTML, if we add class="whatever name here" to a paragraph tag, then we can define that in our CSS. 
+        For example, in the HTML Part:
+        <p class="customname">Lorum Ipsum</p>
+        Then in the CSS, add a reference to the new selector:
+        .webtext {
+            border: 5px dashed green;
+        }
+
+        We can add multiple classes to same line as well. So paragraph would be:
+        <p class="class1 class2">
+        ```
+    
+    - If we want to add a property to everything, instead of typing it out we can just use * as the element, and it will apply it to everything unless something overrides it in the casecade on further down code.
+
+    - Element within Element is done just by adding Element1 Element2 with no comma and a single space. This says that the selector only applies if Element2 is within Element1.
+
+    - Hover can be added to an element to give a hover effect
+        ```
+        p:hover{
+            text-align:center;
+        }
+        ```
+    
+    - last-child and first-child can be added to an element to select the last or first item with that element name
+        ```
+        .webtext last-child{
+            border: 5px dashed green;
         }
         ```
