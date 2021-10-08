@@ -10,6 +10,7 @@ I'll keep things barebones for my own understanding while providing some referen
         - [Learning Process](#learning-process)
     - [Section 1: HTML Basics](#section-1-html-basics)
     - [Section 2: CSS Basics](#section-2-css-basics)
+    - [Section 3: CSS Tips](#section-3-css-tips)
 
 ### Learning Process
 1. #### ***Course of Action***
@@ -343,3 +344,89 @@ I'll keep things barebones for my own understanding while providing some referen
             border: 5px dashed green;
         }
         ```
+
+4. #### ***Text and Fonts***
+    - text decoration can highlight an entire section in something like underline
+        ```
+        p {
+            text-decoration: underline;
+        }
+        or
+        p {
+            text-decoration: line-through;
+        }
+        ```
+    - text transform can change the font style to all uppercase and other features 
+        ```
+        p {
+            text-transform: uppercase;
+        }
+        ```
+    - line height can determine the line height, in pixels, of space between lines
+        ```
+        p {
+            line-height: 20px;
+        }
+    - to change the font actual size, best to do by percentage:
+        ```
+        p {
+            font-size: 150%;
+        }
+        ```
+    - to change the font family, we do this:
+        ```
+        p {
+            font-family: Georgia;
+        }
+        Note: if something is multiple words, you have to use quotation marks around it
+
+        If we are doing a custom font, it's best to add a fallback option like so:
+        p {
+            font-family: "custom font", Georgia;
+        }
+        ```
+    - to change font we would use font style
+        ```
+        p {
+            font-style: italic;
+        }
+        ```
+    - font weight we can specify a number or something like bold
+        ```
+        p {
+            font-weight: bold;
+        }
+        ```
+    - to add a Google Font to our page, we do this:
+        ```
+        1. Get the tag html from google fonts, for ex: 
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap" rel="stylesheet"> 
+
+        2. Add the link tag to the <head>
+
+        3. Google Fonts will say what to add to our CSS, for ex:
+        font-family: 'Roboto', sans-serif;
+
+        4. Add the style to whereever we want to use the font in our style.css
+        ```
+
+### Section 3: CSS Tips
+1. #### ***CSS Image Alignment***
+    - If an image is above text or weirdly aligned, try the float attribute. This will wrap the text around.
+        ```
+        img {
+            float: right;
+        }
+        ```
+    - When adding a footer, sometimes the footer alignment can get messed-up if having an image float above it, as the image will float next to text in the footer. Best practice is to 'clear' the float in relation to the footer in the CSS, like so:
+        ```
+        this should be going after the float
+
+        footer {
+            clear: both;
+        }
+        ```
+### Section 4: CSS Box Model
+1. #### ***CSS Structure***
+    - CSS box model is structured like so: https://www.w3schools.com/css/css_boxmodel.asp
+    
