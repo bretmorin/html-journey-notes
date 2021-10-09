@@ -478,4 +478,33 @@ I'll keep things barebones for my own understanding while providing some referen
         ```
 
 ### Section 5: Advanced CSS
-1. #### ***CSS Structure***
+1. #### ***Flexbox***
+    - Flexbox is used to make modern designs easier than using traditional Grid.
+    - We activate flexbox by assigning the flex attribute in CSS
+        ```
+        .container {
+            display: flex;
+        }
+        This assumed .container is part of a div, so we are saying that everything inside that div is part of flexbox.
+        ```
+    - We then can add different properties to the flexbox, such as:
+        ```
+        .container {
+            display: flex;
+            flex-wrap: wrap; //this wraps the images for a responsive design
+        }
+
+        justify-content: center;
+        this will center all content in all responsive situations
+        ```
+    - We can add a property like transform and hover to add some animations
+        ```
+        img {
+            transition: all 1s; //says that I want all images to transition when an action has taken place, and add a 1-second duration
+        }
+        then we need to add
+        img:hover {
+            transform: scale(1.1);
+        }
+        this part says that when I hover, I want the image to scale to 1.1* its size
+        ```
