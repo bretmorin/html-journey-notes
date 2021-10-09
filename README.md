@@ -11,6 +11,8 @@ I'll keep things barebones for my own understanding while providing some referen
     - [Section 1: HTML Basics](#section-1-html-basics)
     - [Section 2: CSS Basics](#section-2-css-basics)
     - [Section 3: CSS Tips](#section-3-css-tips)
+    - [Section 4: CSS Box Model](#section-css-box-model)
+    - [Section 5: Advanced CSS](#section-5-advanced-css)
 
 ### Learning Process
 1. #### ***Course of Action***
@@ -429,4 +431,51 @@ I'll keep things barebones for my own understanding while providing some referen
 ### Section 4: CSS Box Model
 1. #### ***CSS Structure***
     - CSS box model is structured like so: https://www.w3schools.com/css/css_boxmodel.asp
-    
+    - Good to use 'inspect' browser dev tools to look at box model to better understand the layout
+    - Div's are crucial to structuring a site. They break up sections into containers that we can style and manipulate through CSS.
+        ```
+        We assign a <div></div> anywhere in the body, but we should assign a custom class so we can link it to the CSS
+        <div class="custom-class"> Can put text here </div>
+
+        Then in the CSS, reference the class like a new selector
+        .custom-class {
+            border: 5px red;
+            whatever other things I want to add to the div element
+        }
+        ```
+    - Padding is the space on the inside of the div element border
+        ```
+        Padding goes clockwise starting at the top
+        padding: 5px 3px 3px 5px;
+        padding: top right bottom left;
+
+        Or we can just do padding for all 4 sides with just 1 number
+        padding: 5px;
+
+        Or, we can to top/bottom and left/right like so:
+        padding: 5px 5px;
+        padding: top/bottom left/right;
+        ```
+    - Margin is the space on the outside the div element border
+        ```
+        Same as padding - clockwise
+        margin: 5px 3px 5px 5px;
+        ```
+    - To change the content area in the box model, we can simply assign a height and width
+        ```
+        .boxmodel {
+            height: 30px;
+            width: 30px;
+        }
+        ```
+    - There are more sizing attributes than just pixels and percentages
+        ```
+        Adding an inline em attribute will multiply the size relative to the other referenced, containing element. For example:
+        There is a <p> tag within our html and it's font-size is assigned in the CSS. If we add an inline element like <span> within that <p> tag, we can then add the <span> element to the CSS and specify the font-size with an em, which will multiply the size to whatever the <p> size is.
+        span {
+            font-size: 5em; //this will be 5x the <p> value
+        }
+        ```
+
+### Section 5: Advanced CSS
+1. #### ***CSS Structure***
