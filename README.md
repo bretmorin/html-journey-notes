@@ -534,3 +534,32 @@ I'll keep things barebones for my own understanding while providing some referen
 
 ### Section 6: Website Setup
 1. #### ***Bootstrap***
+    - The purpose of using things like Bootstrap is the same as using HubSpot; modules and snippets of code are already built out and you can search their database of what you are looking for, and adapt it for your own needs.
+    - The interesting thing with bootstrap is that we don't even have to download the files if we don't want to. We can add their CDN (Content Delivery Network) css/js href link in our header. 
+    - After some googling, it seems most devs will use it minimally. For example, maybe a button or a simple function. Or maybe they'll use it to get a quick site prototype up and make sure the backend works. Then they'll just redo it with cleaner code. 
+    - Any element definitions we make within our stylesheet will override bootstrap items.
+        ```
+        So if we define a bootstrap button like:
+        btn-danger
+        in the style.css as
+
+        .btn-danger {
+            background-color: orange;
+        }
+
+        It will override the bootstrap button color of red.
+        ```
+    - Bootstrap's power comes from the responsiveness of its grid system. 
+        - The layout is done via a column format: 12 total
+        - In the div class itself - called 'col' as an element name by bootstrap, you can specify it changing as it moves across screen sizes, as seen here: https://getbootstrap.com/docs/5.1/layout/grid/
+        - You can specify multiple different attributes in the div class, meaning you can have it do different actions as it shrinks and expands. For example, having a mobile menu expand outward when it goes into a 1920 screen.
+        ```
+        An example of code would be:
+        <div class="row">
+            <div class="col" col-sm-6 col-md-12 col-lg-12">
+            1 of 2
+            <div class="col" col-sm-3 col-md-6 col-lg-12">
+            1 of 2
+        </div>
+        Whereas the numbers next to the size are the width size out of the total of the 12 columns that bootstrap uses. 
+        ```
