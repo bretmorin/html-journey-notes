@@ -488,7 +488,7 @@ I'll keep things barebones for my own understanding while providing some referen
 
 2. #### ***Sizing***
     - There are more sizing attributes than just pixels and percentages
-    - The more common font size is 'rem' which is the multiplier of the font size of the browser. So 2rem would be 2x the browser's font size.
+    - The more common font size is 'rem' which is the multiplier of the font size of the browser. So 2rem would be 2x the browser's font size. This is typically seen as the easiest way to deal with font with responsive designs.
     - Another font alternative is 'em'. Many devs find this a bit overcomplicated but it is still quite common.
         - Adding an inline em attribute will multiply the size relative to the other referenced, containing element. For example:
         - There is a <p> tag within our html and it's font-size is assigned in the CSS. If we add an inline element like <span> within that <p> tag, we can then add the <span> element to the CSS and specify the font-size with an em, which will multiply the size to whatever the <p> size is.
@@ -593,4 +593,24 @@ I'll keep things barebones for my own understanding while providing some referen
         <meta name="viewport" content="width=device-width, initial-scale=1">
         ```
         - Viewport is the user's visible area on the page. This means that we are telling the browser that this page will be designed for mobile first, and content will expand from there. 
-    - 
+    - Bootstrap offers some quick classes that can easily be added to our HTML instead of having to do it via CSS. For example:
+        ```
+        So if wanted to change our H1 to all uppercase
+        <h1 class="text-uppercase"> Text here </h1>
+        ```
+        - To look up other bootstrap classes, just do a search here: https://getbootstrap.com/docs/5.1/getting-started/introduction/
+        - So if we wanted to add a button style, we searched for buttons and found the class. We would add this to our already-created HTML button tag, with some common sense. Remove the 'type' part they have.
+        ```
+        <button class="btn btn-primary">Primary</button>
+        ```
+        - Now we can take this a step further, and custom these quick classes to our liking via css. First we would make them our own custom element. Using the above example: 
+        ```
+        Add name-here after btn-primary
+        <button class="btn btn-primary name-here">Primary</button>
+        ```
+        - Then we just add the new class to the CSS
+        ```
+        .name-here {
+            padding: 1rem 2rem;
+        }
+        ```
