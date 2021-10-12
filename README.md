@@ -13,6 +13,7 @@ I'll keep things barebones for my own understanding while providing some referen
     - [Section 3: CSS Tips](#section-3-css-tips)
     - [Section 4: CSS Box Model](#section-css-box-model)
     - [Section 5: Advanced CSS](#section-5-advanced-css)
+    - [Section 6: Website Setup](#section-6-website-setup)
 
 ### Learning Process
 1. #### ***Course of Action***
@@ -252,8 +253,8 @@ I'll keep things barebones for my own understanding while providing some referen
     - In essence, we have to identify the 'selector', the 'property, and the value of that property. The code looks like this:
         ```
         Note, these are placeholders
-        selector {
-            property: value;
+        selector {              // selector = what is being selected
+            property: value;    // property = what to change, and value = how much
         }
 
         So if we wanted to apply a color to a something like an h2 in our code, the same code structure would be:
@@ -277,6 +278,12 @@ I'll keep things barebones for my own understanding while providing some referen
         </style>
         ```
 2. #### ***CSS Properties***
+    - How to make a universal selector
+        ```
+        * {
+            property: value;
+        }
+        ```
     - A basic way to modify one element from our stylesheet:
         ```
         This adds to H2: a color, aligns it to the center of the page, adds a 5px border around it
@@ -429,10 +436,10 @@ I'll keep things barebones for my own understanding while providing some referen
         }
         ```
 ### Section 4: CSS Box Model
-1. #### ***CSS Structure***
-    - CSS box model is structured like so: https://www.w3schools.com/css/css_boxmodel.asp
+1. #### ***Box Model***
     - Good to use 'inspect' browser dev tools to look at box model to better understand the layout
-    - Div's are crucial to structuring a site. They break up sections into containers that we can style and manipulate through CSS.
+    - CSS box model is structured like so: https://www.w3schools.com/css/css_boxmodel.asp
+    - Div's are crucial to structuring a site. They break up sections into containers that we can style and manipulate through CSS. Most sites do parent-child div's - i.e. divs within divs
         ```
         We assign a <div></div> anywhere in the body, but we should assign a custom class so we can link it to the CSS
         <div class="custom-class"> Can put text here </div>
@@ -468,6 +475,8 @@ I'll keep things barebones for my own understanding while providing some referen
             width: 30px;
         }
         ```
+
+2. #### ***Sizing***
     - There are more sizing attributes than just pixels and percentages
         ```
         Adding an inline em attribute will multiply the size relative to the other referenced, containing element. For example:
@@ -478,7 +487,21 @@ I'll keep things barebones for my own understanding while providing some referen
         ```
 
 ### Section 5: Advanced CSS
-1. #### ***Flexbox***
+1. #### ***Display Types***
+    - Most elements will default to display: block. What does that mean?
+        - This means that block elements will appear on the page stacked atop of each other. Each new element will start on a new line. 
+        - For example, a simple paragraph in HTML is a block. Put an outline around the paragraph to see what it looks like.
+        - By default they have a width of 100%. This could be limited by the parent element.
+            - Even if you put width at 50%, the blocks will still stack vertically.
+    - A standard inline element is something like span or paragraph tags.
+        - The problem about trying to add CSS to these elements is overlapping margins. This is fine for things like links, but if we want to make an actual element like a button, then the inline block is better.
+    - Inline block elements do not stack on each other and will be within the same line. An example of this is an HTML link in an anchor tag.
+        - The benefits of using inline blocks elements is that you can give margin, padding, etc to inline items without overlapping issues
+        - These aren't used much anymore as flexbox can accomplish the same outcome with better features. 
+        - Common uses include buttons being side-by-side
+            - You would use display: inline-block
+
+2. #### ***Flexbox***
     - Flexbox is used to make modern designs easier than using traditional Grid.
     - We activate flexbox by assigning the flex attribute in CSS
         ```
@@ -508,3 +531,6 @@ I'll keep things barebones for my own understanding while providing some referen
         }
         this part says that when I hover, I want the image to scale to 1.1* its size
         ```
+
+### Section 6: Website Setup
+1. #### ***Bootstrap***
