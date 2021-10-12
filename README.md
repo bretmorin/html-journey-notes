@@ -284,6 +284,16 @@ I'll keep things barebones for my own understanding while providing some referen
             property: value;
         }
         ```
+    - A common practice for the body and HTML is to define it in the CSS for a few things, like:
+        ```
+        body, html {
+            width: 100%; //making sure the body and html are max width
+            height: 100%;
+            font-family: 'Montserrat', sans-serif; //quoted font defined in html via Google Fonts link, and sans-serif being the fallback
+        }
+
+        This is good when combining with things like bootstrap, just to make sure everything is utilizing max width
+        ```
     - A basic way to modify one element from our stylesheet:
         ```
         This adds to H2: a color, aligns it to the center of the page, adds a 5px border around it
@@ -478,9 +488,11 @@ I'll keep things barebones for my own understanding while providing some referen
 
 2. #### ***Sizing***
     - There are more sizing attributes than just pixels and percentages
+    - The more common font size is 'rem' which is the multiplier of the font size of the browser. So 2rem would be 2x the browser's font size.
+    - Another font alternative is 'em'. Many devs find this a bit overcomplicated but it is still quite common.
+        - Adding an inline em attribute will multiply the size relative to the other referenced, containing element. For example:
+        - There is a <p> tag within our html and it's font-size is assigned in the CSS. If we add an inline element like <span> within that <p> tag, we can then add the <span> element to the CSS and specify the font-size with an em, which will multiply the size to whatever the <p> size is.
         ```
-        Adding an inline em attribute will multiply the size relative to the other referenced, containing element. For example:
-        There is a <p> tag within our html and it's font-size is assigned in the CSS. If we add an inline element like <span> within that <p> tag, we can then add the <span> element to the CSS and specify the font-size with an em, which will multiply the size to whatever the <p> size is.
         span {
             font-size: 5em; //this will be 5x the <p> value
         }
@@ -563,3 +575,22 @@ I'll keep things barebones for my own understanding while providing some referen
         </div>
         Whereas the numbers next to the size are the width size out of the total of the 12 columns that bootstrap uses. 
         ```
+
+2. #### ***Quick Code***
+    - For a full responsive background image, you can just get css code from css-tricks
+        ```
+        html { 
+            background: url(images/bg.jpg) no-repeat center center fixed; 
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        ```
+    - Bootstrap offers an easy-to-copy meta tag to copy for responsiveness. You can grab this off this page: https://getbootstrap.com/docs/5.1/getting-started/introduction/
+        ```
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        ```
+        - Viewport is the user's visible area on the page. This means that we are telling the browser that this page will be designed for mobile first, and content will expand from there. 
+    - 
