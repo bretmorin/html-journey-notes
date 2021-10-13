@@ -639,3 +639,19 @@ I'll keep things barebones for my own understanding while providing some referen
         align-items-center centers via bootstrap
         h-100 makes sure the container height is always 100%
         ```
+    - animate.style offers some easy CSS we can plug-and-play with. We can include it in our HTML via this, similar to bootstrap: 
+        ```
+        <head>
+              <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+                />
+        </head>
+        ```
+        - Once we want to animate something, we can just copy the class from animate.style and insert it:
+        ```
+        every class starts off with animate__animated
+        animate__bounceIn //this was copied from site
+        <h1 class="animate__animated animate__bounceIn">H1 text here</h1> //how to insert
+        ```
+        - their page has easy-to-follow instructions for adding css or infinite animation properties
