@@ -543,12 +543,42 @@ I'll keep things barebones for my own understanding while providing some referen
         }
         this part says that when I hover, I want the image to scale to 1.1* its size
         ```
+3. #### ***Advanced CSS Grid***
+    - Look at the differences between CSS grid and flexbox: https://www.google.com/search?q=css+flexbox+vs+grid&client=firefox-b-d&sxsrf=AOaemvLWJ2PytCy02CBlsePEPZ_MT8f2tQ:1634150062335&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjJ9OWvg8jzAhXuQzABHWJCDeoQ_AUoAXoECAEQAw&biw=790&bih=762&dpr=2
+        - these can be complimentary tools, as opposed to having to use each one by itself
+        - CSS grid is great for when you have both columns and rows of different sizes, and flexbox is great for when you have one dimension (all rows or all columns)
+    - Once we determine CSS grid is the way to go, we need to create a container and put everything in there.
+        ```
+        <div class="container"></div>
+        ```
+    - We then have to add CSS to our container, similar to flexbox, and change the display type. We also need to add grid-template-columns to tell the page how many columns we want to use.
+        ```
+        .container {
+            display: grid;
+            grid-template-columns: 300px 300px; //this will act as 2 grids because there is 2 numbers
+        }
+        ```
+    - Another one we can add is grid-gap, which will add spacing between grid items
+        ```
+        .container {
+            display: grid;
+            grid-template-columns: 300px 300px; 
+            grid-gap: 20px;
+        }
+        ```
+    - Now the issue with defining size as pixels is that it's not very responsive. When you get smaller, those grids will still remain at the pixel amount, which may seem big. CSS grid gives us a tool that is the best to use for sizing: a fraction - fr - a total fraction of the total page size.
+        ```
+        1 fr will only result in 1 column, while 1 fr 1fr will give 2 50% columns
+
+        grid-template-columns: 1fr 1fr;
+        ```
 
 ### Section 6: Website Setup
 1. #### ***Bootstrap***
     - The purpose of using things like Bootstrap is the same as using HubSpot; modules and snippets of code are already built out and you can search their database of what you are looking for, and adapt it for your own needs.
     - The interesting thing with bootstrap is that we don't even have to download the files if we don't want to. We can add their CDN (Content Delivery Network) css/js href link in our header. 
-    - After some googling, it seems most devs will use it minimally. For example, maybe a button or a simple function. Or maybe they'll use it to get a quick site prototype up and make sure the backend works. Then they'll just redo it with cleaner code. 
+    - After some googling, it seems most devs will use it minimally. For example, maybe a button or a simple function. Or maybe they'll use it to get a quick site prototype up and make sure the backend works. Then they'll just redo it with cleaner code.
+    - The majority of bootstrap elements can be done just using flexbox and CSS grids, and knowing bootstrap isn't exactly impressive on a resume. 
     - Any element definitions we make within our stylesheet will override bootstrap items.
         ```
         So if we define a bootstrap button like:
