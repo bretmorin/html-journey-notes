@@ -575,6 +575,12 @@ I'll keep things barebones for my own understanding while providing some referen
         </div>
         Whereas the numbers next to the size are the width size out of the total of the 12 columns that bootstrap uses. 
         ```
+        - So if we have something like a header or a section, we can apply the column layout to it, like so:
+        ```
+        <header class="text-center col-12"> </header>
+        or
+        <section class="text-center col-12"> </section>
+        ```
 
 2. #### ***Quick Code***
     - For a full responsive background image, you can just get css code from css-tricks
@@ -613,4 +619,23 @@ I'll keep things barebones for my own understanding while providing some referen
         .name-here {
             padding: 1rem 2rem;
         }
+        ```
+        - And/or we can specify the general class as an element and alter that
+        ```
+        .btn {
+            font-weight: 700;
+        }
+        ```
+        - If we add to the next one, we can 
+        ```
+        .btm-primary {
+            background-color: #f05F44;
+        }
+        ```
+    - With Bootstrap, we can add h-100 to a class to do 100% height. A good example is using this with a div container to make sure it utilizes the whole page:
+        ```
+        <div class="container d-flex align-items-center h-100"></div>
+        d-flex is activating flexbox via bootstrap
+        align-items-center centers via bootstrap
+        h-100 makes sure the container height is always 100%
         ```
