@@ -544,6 +544,7 @@ I'll keep things barebones for my own understanding while providing some referen
         this part says that when I hover, I want the image to scale to 1.1* its size
         ```
 3. #### ***Advanced CSS Grid***
+    - A quick note: if in firefox, can easily inspect all grid boxes by dev tools->layout (on the right) and clicking on the container.
     - Look at the differences between CSS grid and flexbox: https://www.google.com/search?q=css+flexbox+vs+grid&client=firefox-b-d&sxsrf=AOaemvLWJ2PytCy02CBlsePEPZ_MT8f2tQ:1634150062335&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjJ9OWvg8jzAhXuQzABHWJCDeoQ_AUoAXoECAEQAw&biw=790&bih=762&dpr=2
         - these can be complimentary tools, as opposed to having to use each one by itself
         - CSS grid is great for when you have both columns and rows of different sizes, and flexbox is great for when you have one dimension (all rows or all columns)
@@ -572,6 +573,64 @@ I'll keep things barebones for my own understanding while providing some referen
 
         grid-template-columns: 1fr 1fr;
         ```
+        - There is a shortcut for fractions with the repeat property
+        ```
+        grid-template-columns: repeat(3, 1fr);
+        This will repeat 1fr, 3 times
+        ```
+        - There is another way to do this with the auto property
+        ```
+        grid-template-columns: auto 1fr 2fr;
+        This will auto resize(scale) to fit the content. 
+        ```
+        - Now perhaps the best way to do this for responsiveness is to do:
+        ```
+        grid-template-columns: repeat(auto-fill, minmax());
+        Inside the minmax we want to define
+        1. the minimum size wanted
+        2. the maximum size wanted of each item. This means the container itself will auto adjust in size based on the viewport to keep that item the specified size.
+
+        so...
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        This will be minimum 300px. As soon as it goes above 300px in viewport, it expands the grid and keeps each item at 300px
+        ```
+    - CSS grid also allows us to define rows as well; not just columns. 
+        ```
+        If using fr for sizing, it will compare the other rows
+        grid-template-rows: 1fr 2fr
+
+        This will result in the 2nd row being twice as big as the first
+        If there are more than 2 rows in this example, the 1fr will keep
+        repeating after the 2fr
+        ```
+    - Now everything above was done within a container. What if we want to apply CSS grid to our functions? 
+        - We can specify a certain item to cover a certain amount of grid areas.
+        ```
+        .element-item-here {    
+            grid-column-start: 1;
+            grid-column-end: 4;
+        }
+        This will make that item cover the size of 1 to 4 grids. 
+        ```
+        - The short-hand way to do this is:
+        ```
+        .element-item-here {
+            grid-column: 1/4;
+        }
+        ```
+        - Another way to do this is to span it across a few grids
+        ```
+        .element-item-here {
+            grid-column: span 2;
+        }        
+        ```
+        - The problem with this is that it removes responsiveness because it makes sure the specified size matches what we told it to do.To help with responsiveness, we can add a '-1' that means it will go all-the-way to the end of the viewport.
+        ```
+        .element-item-here{
+            grid-column: 1/-1;
+        }
+        ```
+        - If we want to have the item go across 
 
 ### Section 6: Website Setup
 1. #### ***Bootstrap***
