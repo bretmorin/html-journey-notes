@@ -86,6 +86,15 @@ I'll keep things barebones for my own understanding while providing some referen
     ```
     - **If working within the body element with no other elements inside, it will just output 1 long line of text without proper formatting.** 
 
+    - Navigation in a header is typically done through the nav tag, indicating that many links will be contained inside, typically via an unordered list.
+        ```
+        <nav></nav>
+        then
+        <nav>
+            <ul>
+            </ul>
+        </nav>
+        ```
     - Paragraph: will add a new line after the closing tag
         ```
         <p></p>
@@ -497,6 +506,13 @@ I'll keep things barebones for my own understanding while providing some referen
             font-size: 5em; //this will be 5x the <p> value
         }
         ```
+    - For responsive height sizing, vh (viewport height) is a best-practice sizing method
+        ```
+        .custom-element {
+            height: 50vh //this means it will always be 50% of 
+            viewport height
+        }
+        ```
 
 ### Section 5: Advanced CSS
 1. #### ***Display Types***
@@ -618,7 +634,7 @@ I'll keep things barebones for my own understanding while providing some referen
             grid-column: 1/4;
         }
         ```
-        - Another way to do this is to span it across a few grids
+        - Another way to do this is to span it across a few grids. This means there is no start area for it, and it will take up that space wherever. It will, however, never span less than the amount specified.
         ```
         .element-item-here {
             grid-column: span 2;
@@ -630,7 +646,6 @@ I'll keep things barebones for my own understanding while providing some referen
             grid-column: 1/-1;
         }
         ```
-        - If we want to have the item go across 
 
 ### Section 6: Website Setup
 1. #### ***Bootstrap***
@@ -672,6 +687,12 @@ I'll keep things barebones for my own understanding while providing some referen
         ```
 
 2. #### ***Quick Code***
+    - Sometimes our browser has built-in CSS that causes white space / margins around our page. We can remove that in the CSS like so:
+        ```
+        body {
+            margin: auto 0;
+        }
+        ```
     - For a full responsive background image, you can just get css code from css-tricks
         ```
         html { 
@@ -744,3 +765,21 @@ I'll keep things barebones for my own understanding while providing some referen
         <h1 class="animate__animated animate__bounceIn">H1 text here</h1> //how to insert
         ```
         - their page has easy-to-follow instructions for adding css or infinite animation properties
+    - Media Queries are used to specify what is the intended use case of the webpage, and does that change when the page is used at different sizes. Using these can be good to resolve potential issues the site is having rendering things properly.
+        ```
+        @media only screen //says 'this is intended use case'
+        @media only screen and (max-width: 600px) {
+
+        } //says 'use these properties that we are about to define,
+        but only when the max width is 600px. As soon as this is less
+        than 600px in width, apply the secondary defined properties.
+
+        @media only screen and (max-width: 600px) {
+            .custom-element-reference {
+                font-size: 0.5em;
+                padding: 0;
+            }
+        }
+        //so now when we pull the screen past 600px, it restores
+        the original default sizing with our specified font-size
+        ```
