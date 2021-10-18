@@ -354,7 +354,26 @@ I'll keep things barebones for my own understanding while providing some referen
         We can add multiple classes to same line as well. So paragraph would be:
         <p class="class1 class2">
         ```
-    
+    - Selectors default to select everything underneath it - i.e. child elements. For example:
+        ```
+        <div class="container">
+            <p>some text here</p>
+                <h2>some text here</h2>
+        </div>
+
+        In the CSS:
+        .container {
+            width: 100%;
+        }
+        ```
+        - In this above example, the H2 would have a width of 100%.
+        - Now, if we add a greater than symbol in the css element field, that would limit it to only 1 descendent. For example:
+        ```
+        .container > p {
+            width: 100%;
+        }
+        ```
+        - Now only the paragraph text would have 100% width, not h2.
     - If we want to add a property to everything, instead of typing it out we can just use * as the element, and it will apply it to everything unless something overrides it in the casecade on further down code.
 
     - Element within Element is done just by adding Element1 Element2 with no comma and a single space. This says that the selector only applies if Element2 is within Element1.
@@ -782,4 +801,12 @@ I'll keep things barebones for my own understanding while providing some referen
         }
         //so now when we pull the screen past 600px, it restores
         the original default sizing with our specified font-size
+        ```
+    - To make a top nav sticky on scroll, we simply need to add a class to the nav, and then do this in the CSS:
+        ```
+        .sticky {
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
         ```
