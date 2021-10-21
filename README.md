@@ -550,13 +550,15 @@ I'll keep things barebones for my own understanding while providing some referen
 
 2. #### ***Flexbox***
     - Flexbox is used to make modern designs easier than using traditional Grid.
-    - We activate flexbox by assigning the flex attribute in CSS
+    - Flexbox can both be attributed to a container and an item. 
+    - We activate flexbox by assigning the flex attribute to a container in CSS
         ```
         .container {
             display: flex;
         }
-        This assumed .container is part of a div, so we are saying that everything inside that div is part of flexbox.
         ```
+        - This assumed .container is part of a div, so we are saying that everything inside that div is part of flexbox.
+        - A flex item is any element that lives directly inside of a flex container
     - We then can add different properties to the flexbox, such as:
         ```
         .container {
@@ -567,6 +569,32 @@ I'll keep things barebones for my own understanding while providing some referen
         justify-content: center;
         this will center all content in all responsive situations
         ```
+    - Flexbox has shorthand by using the flex declaration. These properties affect how flex items size themselves within their container
+        - flex is shorthand for flex-grow, flex-shrink, and flex-basis
+        ```
+        div {
+            flex: 0 1 0%; //grow, shrink, basis
+        }
+        ```
+        - by specifying flex 1, we are actually saying flex 1 1 0%
+        - Flex Grow: how much the applied property would grow based on a comparison container. For example
+        ```
+        If we did Flex 2; to a div inside our container, we were 
+        saying that div should be 2x the size of the other div's
+        in that container.
+        .flex-container .two {
+            flex: 2 1 0%;
+        }
+        ```
+        - Flex Shrink: Same as grow but sets the 'shrink factor' of a flex item. Using the above example:
+        ```
+        If our 3 divs from above had a width declaration like: 
+        width: 100px 
+        and .flex-container was smaller than 300px, our divs would have to shrink to fit. 
+        The dfault shrink factor is flex-shrink 1;
+        Setting flex-shrink: 0; would make the item never shrink.
+        ```
+        - Flex Basis: sets the initial size of a flex item so any growing or shrinking will start from that baseline size. 
     - We can add a property like transform and hover to add some animations
         ```
         img {
