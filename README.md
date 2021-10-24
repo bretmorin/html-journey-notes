@@ -4,8 +4,30 @@ The goal of this section is to record an HTML and CSS cheat-sheet for a future r
 
 I'll keep things barebones for my own understanding while providing some reference links if I want to explore other niche areas further. 
 
+# Reference Links
+- HTML Cheat Sheet
+    - https://htmlcheatsheet.com/
+    - https://overapi.com/html
+- CSS Cheat Sheet
+    - https://htmlcheatsheet.com/css/
+    - https://overapi.com/css
+    - https://cssreference.io/
+    - https://css-tricks.com/almanac/
+- CSS Grid
+    - https://grid.malven.co/
+    - https://css-tricks.com/snippets/css/complete-guide-grid/
+- CSS Flexbox
+    - https://darekkay.com/flexbox-cheatsheet/
+    - https://www.freecodecamp.org/news/understanding-flexbox-everything-you-need-to-know-b4013d4dc9af/
+    - https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+- HTML/CSS Design Tools
+    - https://animate.style/
+    - https://paletton.com/#uid=1000u0kllllaFw0g0qFqFg0w0aF
+    - https://html-css-js.com/html/character-codes/
+
 ## Table of Contents
 - [HTML Journey Notes](#html-journey-notes)
+- [Reference Links](#reference-links)
     - [Table of Contents](#table-of-contents)
         - [Learning Process](#learning-process)
     - [Section 1: HTML Basics](#section-1-html-basics)
