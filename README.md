@@ -31,10 +31,11 @@ I'll keep things barebones for my own understanding while providing some referen
     - [Table of Contents](#table-of-contents)
     - [Section 1: HTML Basics](#section-1-html-basics)
     - [Section 2: CSS Basics](#section-2-css-basics)
-    - [Section 3: CSS Tips](#section-3-css-tips)
-    - [Section 4: CSS Box Model](#section-css-box-model)
-    - [Section 5: Advanced CSS](#section-5-advanced-css)
-    - [Section 6: Website Setup](#section-6-website-setup)
+    - [Section 3: Adaptive Sizing](#section-3-adaptive-sizing)
+    - [Section 4: Box Model and Page Structure](#section-4-box-model-and-page-structure)
+    - [Section 5: Responsiveness](#section-5-responsiveness)
+    - [Section 6: Frameworks](#section-6-frameworks)
+
 
 ### Section 1: HTML Basics
 - HTML is creating the structure of the page, and CSS is the design
@@ -258,81 +259,110 @@ I'll keep things barebones for my own understanding while providing some referen
 
 ### Section 2: CSS Basics
 - Utilizes style.css
-- 'Cascading' in CSS means that it will execute commands in order, like a waterfall method, so the last command will override previous requests for potentially the same item. 
+- 'Cascading' in CSS (Cascading Style Sheet) means that it will execute commands in order, like a waterfall method, so the last command will override previous requests for potentially the same item. 
     - As a result, it's best practice to add selectors in the stylesheet in the same heirarchy as the HTML - i.e. head selectors coming before body selectors
 1. #### ***CSS Fundamentals***
     - Telling the HTML file to look at our CSS file. We want to put this in the header section
         ```
         <link rel="stylesheet" type="text/css" href="style.css">
-        Type means the media type, and rel means rleationship to this (html) file.
-        Then in href, put the link to style.css, wherever it lies in the folder. Will have to do this to every HTML page I want to share that particular css file. I can do different styles on different pages by adding a different css file for those pages, and linking appropriately.
         ```
+        - Type means the media type and rel means relationship to this (html) file. Then in href, put the link to style.css, wherever it lies in the folder. Will have to do this to every HTML page I want to share that particular css file. I can do different styles on different pages by adding a different css file for those pages, and linking appropriately.<br/><br/>
+        
     - Commenting-out:
         ```
         Can use command+/ hotkey, or:
-        /* text here
-        */
+        /* text here */
         ```
-    - In essence, we have to identify the 'selector', the 'property, and the value of that property. The code looks like this:
+    - In essence, we have to identify the 'selector', the 'property, and the value of that property. The code looks like this: Note, these are placeholders
         ```
-        Note, these are placeholders
         selector {              // selector = what is being selected
             property: value;    // property = what to change, and value = how much
         }
-
-        So if we wanted to apply a color to a something like an h2 in our code, the same code structure would be:
-        h2 {
-            color: red;
-        }
-        We can also add multiple properties within the h2 element, like text-align: center
         ```
-    - We can also utilize in-line CSS styles without the stylesheet, meaning that styles can be applied as attributes to elements in our HTML pages. This is not commonly used but good to know so you don't get confused when viewing.
-        ```
-        Adding a style attribute to the header:
-        <header style="background-color:blue"> </header>
-        ```
-        - We can also add style tags to the page head element like so
-        ```
-        In this example, adding a different background color to a list
-        <style>
-            li {
-                background-color: purple;
+        - So if we wanted to apply a color to a something like an h2 in our code, the same code structure would be:
+            ```
+            h2 {
+                color: red;
             }
-        </style>
+            ```
+        - We can also add multiple properties within the h2 selector, like 
+            ```
+            h2 {
+                color: red;
+                text-align: center;
+                border: 5px solid purple;
+            }
+            ```
+    - Good practice to define max width and height, especially if using something like Bootstrap/Tailwind. 
         ```
-2. #### ***CSS Properties***
-    - How to make a universal selector
+        body, html {
+            width: 100%; //making sure the body and html are max width
+            height: 100%;
+            font-family: 'Montserrat', sans-serif; 
+        }
+        ```
+    - Sometimes our browser has built-in CSS that causes white space / margins around our page. We can remove that in the CSS like so:
+        ```
+        body {
+            margin: auto 0;
+        }
+        ```
+2. #### ***CSS Selectors***
+    - Selectors are powerful as we can create our own elements, in that we can define a section that already might have a CSS element, but there are certain ones that we want excluded from the main CSS properties into their own definition
+        - We want to define a class name in the HTML so we can identify our selectors in the CSS file. 
+            - For example, adding a name to a paragraph section
+                ```
+                <p class="custom-name">Lorum Ipsum</p>
+                ```
+            - Then in the CSS, add a reference to the new selector
+                ```
+                .custom-name {
+                    border: 5px dashed green;
+                }
+                ```
+            - We can add multiple classes to same line as well. So paragraph would be:
+                ```
+                <p class="class1 class2">
+                ```
+    - Selectors default to select everything underneath it, as-in child elements. For example:
+        ```
+        In the HTML:
+            <div class="container">
+                <h2>some text here</h2>
+                    <p>some text here</p>
+            </div>
+
+        In the CSS:
+            .container {
+                width: 100%;
+            }
+        ```
+        - In this above example, the H2 would have a width of 100%.
+        - Now, if we add a greater than symbol in the css element field, that would limit it to only 1 descendent. For example:
+        ```
+        .container > p {
+            width: 100%;
+        }
+        ```
+        - Now only the h2 text would have 100% width, not the paragraph text.<br><br>
+    - How to make a universal selector which will apply to everything unless something overrides it in the cascade.
         ```
         * {
             property: value;
         }
         ```
-    - A common practice for the body and HTML is to define it in the CSS for a few things, like:
+    - Element within Element says that the selector only applies if Element2 is within Element1.
+        - This example will only work if there is a paragraph within a div.
         ```
-        body, html {
-            width: 100%; //making sure the body and html are max width
-            height: 100%;
-            font-family: 'Montserrat', sans-serif; //quoted font defined in html via Google Fonts link, and sans-serif being the fallback
-        }
-
-        This is good when combining with things like bootstrap, just to make sure everything is utilizing max width
-        ```
-    - A basic way to modify one element from our stylesheet:
-        ```
-        This adds to H2: a color, aligns it to the center of the page, adds a 5px border around it
-        h2 {
-            color: red;
-            text-align: center;
-            border: 5px solid purple;
+        div p {
+            background-color: yellow;
         }
         ```
-    - Adding background images
+    - Hover can be added to an element to give a hover effect
         ```
-        selector {
-            background-image: url(image-or-link-path-here.jpeg)
+        p:hover{
+            text-align:center;
         }
-        However, chances are the alignment is off. We can add another property like:
-        background-size: cover;
         ```
     - Removing list bullets/numbers
         ```
@@ -346,68 +376,30 @@ I'll keep things barebones for my own understanding while providing some referen
             display: inline-block;
         }
         ```
-3. #### ***CSS Selectors***
-    - we can add multiple selectors to our css
-        ```
-        h2, p {
-            color: red;
-            text-align: center;
-            border: 5px solid purple;
-        }
-        ```
-    - Selectors are powerful as we can create our own elements, in that we can define a section that already might have a CSS element, but there are certain ones that we want excluded from the main CSS properties into their own definition
-        ```
-        In the HTML, if we add class="whatever name here" to a paragraph tag, then we can define that in our CSS. 
-        For example, in the HTML Part:
-        <p class="customname">Lorum Ipsum</p>
-        Then in the CSS, add a reference to the new selector:
-        .webtext {
-            border: 5px dashed green;
-        }
-
-        We can add multiple classes to same line as well. So paragraph would be:
-        <p class="class1 class2">
-        ```
-    - Selectors default to select everything underneath it - i.e. child elements. For example:
-        ```
-        <div class="container">
-            <p>some text here</p>
-                <h2>some text here</h2>
-        </div>
-
-        In the CSS:
-        .container {
-            width: 100%;
-        }
-        ```
-        - In this above example, the H2 would have a width of 100%.
-        - Now, if we add a greater than symbol in the css element field, that would limit it to only 1 descendent. For example:
-        ```
-        .container > p {
-            width: 100%;
-        }
-        ```
-        - Now only the paragraph text would have 100% width, not h2.
-    - If we want to add a property to everything, instead of typing it out we can just use * as the element, and it will apply it to everything unless something overrides it in the casecade on further down code.
-
-    - Element within Element is done just by adding Element1 Element2 with no comma and a single space. This says that the selector only applies if Element2 is within Element1.
-
-    - Hover can be added to an element to give a hover effect
-        ```
-        p:hover{
-            text-align:center;
-        }
-        ```
-    
-    - last-child and first-child can be added to an element to select the last or first item with that element name
-        ```
-        .webtext last-child{
-            border: 5px dashed green;
-        }
-        ```
-
-4. #### ***Text and Fonts***
-    - text decoration can highlight an entire section in something like underline
+3. #### ***Text, Fonts, and Images***
+    - Font placement
+        - To add a Google Font to our page, we do this:
+            1. Get the tag html from google fonts, for ex: 
+                ```
+                <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap" rel="stylesheet"> 
+                ```
+            2. Add the link tag to the 
+                ```
+                <head>
+                ```
+            3. Google Fonts will say what to add to our CSS, for ex:
+                ```
+                font-family: 'Roboto', sans-serif;
+                ```
+            4. Add the style to whereever we want to use the font in our style.css, defined in HTML via the Google Fonts link
+                - If something is using multiple words, you have to use quotation marks around it
+                - If doing a custom font, it's always best to have a fallback option. In this example, the fallback is sans-serif
+                ```
+                body, html {
+                    font-family: 'Montserrat', sans-serif; //
+                }
+                ```
+    - Text decoration can highlight an entire section in something like underline
         ```
         p {
             text-decoration: underline;
@@ -417,39 +409,10 @@ I'll keep things barebones for my own understanding while providing some referen
             text-decoration: line-through;
         }
         ```
-    - text transform can change the font style to all uppercase and other features 
+    - Text transform can change the font style to all uppercase and other features 
         ```
         p {
             text-transform: uppercase;
-        }
-        ```
-    - line height can determine the line height, in pixels, of space between lines
-        ```
-        p {
-            line-height: 20px;
-        }
-    - to change the font actual size, best to do by percentage:
-        ```
-        p {
-            font-size: 150%;
-        }
-        ```
-    - to change the font family, we do this:
-        ```
-        p {
-            font-family: Georgia;
-        }
-        Note: if something is multiple words, you have to use quotation marks around it
-
-        If we are doing a custom font, it's best to add a fallback option like so:
-        p {
-            font-family: "custom font", Georgia;
-        }
-        ```
-    - to change font we would use font style
-        ```
-        p {
-            font-style: italic;
         }
         ```
     - font weight we can specify a number or something like bold
@@ -458,157 +421,14 @@ I'll keep things barebones for my own understanding while providing some referen
             font-weight: bold;
         }
         ```
-    - to add a Google Font to our page, we do this:
+    - Adding background images
         ```
-        1. Get the tag html from google fonts, for ex: 
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap" rel="stylesheet"> 
-
-        2. Add the link tag to the <head>
-
-        3. Google Fonts will say what to add to our CSS, for ex:
-        font-family: 'Roboto', sans-serif;
-
-        4. Add the style to whereever we want to use the font in our style.css
-        ```
-
-### Section 3: CSS Tips
-1. #### ***CSS Image Alignment***
-    - If an image is above text or weirdly aligned, try the float attribute. This will wrap the text around.
-        ```
-        img {
-            float: right;
+        selector {
+            background-image: url(image-or-link-path-here.jpeg)
         }
+        However, chances are the alignment is off. We can add another property like:
+        background-size: cover;
         ```
-    - When adding a footer, sometimes the footer alignment can get messed-up if having an image float above it, as the image will float next to text in the footer. Best practice is to 'clear' the float in relation to the footer in the CSS, like so:
-        ```
-        this should be going after the float
-
-        footer {
-            clear: both;
-        }
-        ```
-### Section 4: CSS Box Model
-1. #### ***Box Model***
-    - Good to use 'inspect' browser dev tools to look at box model to better understand the layout
-    - CSS box model is structured like so: https://www.w3schools.com/css/css_boxmodel.asp
-    - Div's are crucial to structuring a site. They break up sections into containers that we can style and manipulate through CSS. Most sites do parent-child div's - i.e. divs within divs
-        ```
-        We assign a <div></div> anywhere in the body, but we should assign a custom class so we can link it to the CSS
-        <div class="custom-class"> Can put text here </div>
-
-        Then in the CSS, reference the class like a new selector
-        .custom-class {
-            border: 5px red;
-            whatever other things I want to add to the div element
-        }
-        ```
-    - Padding is the space on the inside of the div element border
-        ```
-        Padding goes clockwise starting at the top
-        padding: 5px 3px 3px 5px;
-        padding: top right bottom left;
-
-        Or we can just do padding for all 4 sides with just 1 number
-        padding: 5px;
-
-        Or, we can to top/bottom and left/right like so:
-        padding: 5px 5px;
-        padding: top/bottom left/right;
-        ```
-    - Margin is the space on the outside the div element border
-        ```
-        Same as padding - clockwise
-        margin: 5px 3px 5px 5px;
-        ```
-    - To change the content area in the box model, we can simply assign a height and width
-        ```
-        .boxmodel {
-            height: 30px;
-            width: 30px;
-        }
-        ```
-
-2. #### ***Sizing***
-    - There are more sizing attributes than just pixels and percentages
-    - The more common font size is 'rem' which is the multiplier of the font size of the browser. So 2rem would be 2x the browser's font size. This is typically seen as the easiest way to deal with font with responsive designs.
-    - Another font alternative is 'em'. Many devs find this a bit overcomplicated but it is still quite common.
-        - Adding an inline em attribute will multiply the size relative to the other referenced, containing element. For example:
-        - There is a <p> tag within our html and it's font-size is assigned in the CSS. If we add an inline element like <span> within that <p> tag, we can then add the <span> element to the CSS and specify the font-size with an em, which will multiply the size to whatever the <p> size is.
-        ```
-        span {
-            font-size: 5em; //this will be 5x the <p> value
-        }
-        ```
-    - For responsive height sizing, vh (viewport height) is a best-practice sizing method
-        ```
-        .custom-element {
-            height: 50vh //this means it will always be 50% of 
-            viewport height
-        }
-        ```
-
-### Section 5: Advanced CSS
-1. #### ***Display Types***
-    - Most elements will default to display: block. What does that mean?
-        - This means that block elements will appear on the page stacked atop of each other. Each new element will start on a new line. 
-        - For example, a simple paragraph in HTML is a block. Put an outline around the paragraph to see what it looks like.
-        - By default they have a width of 100%. This could be limited by the parent element.
-            - Even if you put width at 50%, the blocks will still stack vertically.
-    - A standard inline element is something like span or paragraph tags.
-        - The problem about trying to add CSS to these elements is overlapping margins. This is fine for things like links, but if we want to make an actual element like a button, then the inline block is better.
-    - Inline block elements do not stack on each other and will be within the same line. An example of this is an HTML link in an anchor tag.
-        - The benefits of using inline blocks elements is that you can give margin, padding, etc to inline items without overlapping issues
-        - These aren't used much anymore as flexbox can accomplish the same outcome with better features. 
-        - Common uses include buttons being side-by-side
-            - You would use display: inline-block
-
-2. #### ***Flexbox***
-    - Flexbox is used to make modern designs easier than using traditional Grid.
-    - Flexbox can both be attributed to a container and an item. 
-    - We activate flexbox by assigning the flex attribute to a container in CSS
-        ```
-        .container {
-            display: flex;
-        }
-        ```
-        - This assumed .container is part of a div, so we are saying that everything inside that div is part of flexbox.
-        - A flex item is any element that lives directly inside of a flex container
-    - We then can add different properties to the flexbox, such as:
-        ```
-        .container {
-            display: flex;
-            flex-wrap: wrap; //this wraps the images for a responsive design
-        }
-
-        justify-content: center;
-        this will center all content in all responsive situations
-        ```
-    - Flexbox has shorthand by using the flex declaration. These properties affect how flex items size themselves within their container
-        - flex is shorthand for flex-grow, flex-shrink, and flex-basis
-        ```
-        div {
-            flex: 0 1 0%; //grow, shrink, basis
-        }
-        ```
-        - by specifying flex 1, we are actually saying flex 1 1 0%
-        - Flex Grow: how much the applied property would grow based on a comparison container. For example
-        ```
-        If we did Flex 2; to a div inside our container, we were 
-        saying that div should be 2x the size of the other div's
-        in that container.
-        .flex-container .two {
-            flex: 2 1 0%;
-        }
-        ```
-        - Flex Shrink: Same as grow but sets the 'shrink factor' of a flex item. Using the above example:
-        ```
-        If our 3 divs from above had a width declaration like: 
-        width: 100px 
-        and .flex-container was smaller than 300px, our divs would have to shrink to fit. 
-        The dfault shrink factor is flex-shrink 1;
-        Setting flex-shrink: 0; would make the item never shrink.
-        ```
-        - Flex Basis: sets the initial size of a flex item so any growing or shrinking will start from that baseline size. 
     - We can add a property like transform and hover to add some animations
         ```
         img {
@@ -620,22 +440,187 @@ I'll keep things barebones for my own understanding while providing some referen
         }
         this part says that when I hover, I want the image to scale to 1.1* its size
         ```
-3. #### ***Advanced CSS Grid***
-    - A quick note: if in firefox, can easily inspect all grid boxes by dev tools->layout (on the right) and clicking on the container.
-    - Look at the differences between CSS grid and flexbox: https://www.google.com/search?q=css+flexbox+vs+grid&client=firefox-b-d&sxsrf=AOaemvLWJ2PytCy02CBlsePEPZ_MT8f2tQ:1634150062335&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjJ9OWvg8jzAhXuQzABHWJCDeoQ_AUoAXoECAEQAw&biw=790&bih=762&dpr=2
-        - these can be complimentary tools, as opposed to having to use each one by itself
-        - CSS grid is great for when you have both columns and rows of different sizes, and flexbox is great for when you have one dimension (all rows or all columns)
-    - Once we determine CSS grid is the way to go, we need to create a container and put everything in there.
+
+### Section 3: Adaptive Sizing
+1. #### ***Sizing***
+    - We utilize more adaptive sizing rather than by pixels and percentages, as these tend to break when working with multiple screen sizes
+        - It's good practice to specify the document HTML font-size initially so we can reference it through adaptive sizing later
+            ```
+            html {
+                font-size: 100%; //or 16px/1em
+            }
+            ```
+            - The % is good for accessibility as the user might have already increased their font
+    - REM (root EM)
+        - This is the multiplier of the font size of the browser, meaning it looks at the 'root' of the size of the overall HTML element as a reference point, and is a multiple or fraction of that
+            ```
+            .customrem h1 {
+                font-size: 2.5rem;
+            }
+
+            .customrem p {
+                font-size: 1rem;
+            }
+            ```
+        - This would be 2x the browser's font size. 
+    - EM
+        - This is in-relation-to (parent to child) the above element
+        - This is typically used only for elements within elements, where we might want some more size control, vs larger page elements like margin on divs, etc, where REM would be better used
+        - For example, the below means that the paragraph is 2.5x less than the h1
+            ```
+            .customem h1 {
+                font-size: 2.5em;
+            }
+
+            .customem p {
+                font-size: 1em; //typically 16px = 1em
+            }
+            ```
+        - This also says that everything compounds ontop of each other, so it can get out of hand if we keep adding 'em' in the same div. REM's solves the compounding issue we can face <br><br>
+    
+    - For responsive height/width sizing, vh (viewport height) or vw is a best-practice sizing method
+        - So for having an element always be 50% of viewport height:
+            ```
+            .custom-element {
+                height: 50vh 
+            }
+            ```
+
+### Section 4: Box Model and Page Structure
+1. #### ***Box Model***
+    - **CSS box model structure**: https://www.w3schools.com/css/css_boxmodel.asp
+        - Use 'inspect' browser dev tools to look at box model to better understand the layout<br><br>
+
+    - The site should be broken up into sections by using Div's in the HTML
+        - By doing this, we can easily align all elements within these containers and throughout the page, as opposed to trying to align 50 individual elements
+        - Divs within divs is common when structuring a site, as it allows you to add margin between elements within a bigger div
+        - We assign a div anywhere in the body, but we should assign a custom class so we can link it to the CSS
+            ```
+            <div class="custom-class">
+            </div>
+            ```
+        - Then in the CSS, reference the class like a new selector
+            ```
+            .custom-class {
+                border: 5px red;
+            }
+            ```
+    - Padding is the space on the inside of the div element border, whereas Margin is on the ouside of the div.
+        - Padding and Margin goes clockwise starting at the top
+            ```
+            padding: 5px 3px 3px 5px;
+            padding: top right bottom left;
+            ```
+        - Or we can just do padding for all 4 sides with just 1 number
+            ```
+            padding: 5px;
+            ```
+        - Or, we can to top/bottom and left/right like so:
+            ```
+            padding: 5px 5px;
+            padding: top/bottom left/right;
+            ```
+
+2. #### ***Display Types***
+    - Most elements will default to 
         ```
-        <div class="container"></div>
+        display: block
         ```
-    - We then have to add CSS to our container, similar to flexbox, and change the display type. We also need to add grid-template-columns to tell the page how many columns we want to use.
+        - This means that block elements will appear on the page stacked atop of each other. Each new element will start on a new line 
+        - For example, a simple paragraph in HTML is a block. Add a border to see what it looks like
+        - By default they have a width of 100%. This could be limited by the parent element
+            - Even if you put width at 50%, the blocks will still stack vertically.
+        - We then utilize div's with Flexbox and/or CSS Grid to add responsive elements and horizontal+vertical layouts <br><br>
+
+3. #### ***Flexbox***
+    - To activate flexbox in an element, we utilize this inside a container of some sort, or to a nested item
         ```
         .container {
-            display: grid;
-            grid-template-columns: 300px 300px; //this will act as 2 grids because there is 2 numbers
+            display: flex;
+        }
+        or
+        .div 2 {
+            display: flex;
         }
         ```
+        - This assumed .container is part of a div, so we are saying that everything inside that div is part of flexbox. <br><br>
+    - We then can add different properties to the flexbox, such as:
+        ```
+        .container {
+            display: flex;
+            flex-wrap: wrap; //wraps images for a responsive design
+            justify-content: center; //centers all content responsively
+        }
+        ``` 
+    - Flexbox Properties:
+        - The 'Flex' property is shorthand for flex-grow, flex-shrink, and flex-basis
+            - The easiest way to think of this is: max, min, ideal sizes
+            - Some help: 
+                - https://css-tricks.com/understanding-flex-grow-flex-shrink-and-flex-basis/
+                - https://css-tricks.com/the-thought-process-behind-a-flexbox-layout/
+        - flex default values are:
+            ```
+            div {
+                flex: 0 1 auto; //grow, shrink, basis
+            }
+            ```
+            ```
+            div {
+                flex: 1;
+            }
+
+            This actually means 
+            
+            div {
+                flex: 1 1 auto;
+            }
+            ```
+        - Flex Grow: how much the applied property would grow based on a comparison container 
+            - For example if we did 'flex: 2' to a div inside our container, we are saying that div should be 2x the size of the other div's
+            in that container.
+                ```
+                .flex-container .two {
+                    flex: 2 1 auto;
+                }
+                ```
+        - Flex Shrink: determines how much the flex item will shrink relative to the rest of the flex items in the flex container when there isn’t enough space on the row 
+            - Setting 'flex-shrink: 0;' would make the item never shrink
+            - Using the above example, if our 3 divs from above had a width declaration like: 
+                ```
+                width: 100px 
+
+                .flex container .two {
+                    width
+                }
+                and .flex-container was smaller than 300px, our divs would have to shrink to fit. 
+                ```
+        - Flex Basis: sets the initial size of a flex item so any growing or shrinking will start from that baseline size. <br><br>
+
+4. #### ***CSS Grid***
+    - Difference between CSS Grid and Flexbox is that Grid can use horizontal and vertical simultaneously, while flexbox is one or the other based on div alignment
+        - Firstly, flexbox has more browser compatability
+        - So if I have multiple div's in subsequent rows that have content in each other, it would be prudent to use flexbox to align the content inside those div's. 
+            - However, those rows may need alignment in relation to the content that is within those div's. This is where CSS Grid shines.
+            - CSS Grid also can do things like purposley overlap content
+    - Some help:
+        - https://css-tricks.com/snippets/css/complete-guide-grid/
+        - https://learncssgrid.com/#grid-container
+    - Once we determine CSS grid is the way to go, we need to create a container and put everything in there
+        ```
+        <div class="container"></div>
+
+        .container {
+
+        }
+        ```
+    - We then have to add CSS to our container, similar to flexbox, and change the display type. We also need to add grid-template-columns to tell the page how many columns we want to use
+        - this will act as 2 grids because there is 2 numbers
+            ```
+            .container {
+                display: grid;
+                grid-template-columns: 300px 300px; 
+            }
+            ```
     - Another one we can add is grid-gap, which will add spacing between grid items
         ```
         .container {
@@ -644,114 +629,81 @@ I'll keep things barebones for my own understanding while providing some referen
             grid-gap: 20px;
         }
         ```
-    - Now the issue with defining size as pixels is that it's not very responsive. When you get smaller, those grids will still remain at the pixel amount, which may seem big. CSS grid gives us a tool that is the best to use for sizing: a fraction - fr - a total fraction of the total page size.
-        ```
-        1 fr will only result in 1 column, while 1 fr 1fr will give 2 50% columns
-
-        grid-template-columns: 1fr 1fr;
-        ```
+    - CSS Grid offers its own responsive sizing usage: fraction - as-in a fraction of the total page size
+        -  1 fr will only result in 1 column, while 1 fr 1fr will give 2 50% columns
+            ```
+            grid-template-columns: 1fr 1fr;
+            ```
         - There is a shortcut for fractions with the repeat property
-        ```
-        grid-template-columns: repeat(3, 1fr);
-        This will repeat 1fr, 3 times
-        ```
+            - This will repeat 1fr, 3 times
+            ```
+            grid-template-columns: repeat(3, 1fr);
+            ```
         - There is another way to do this with the auto property
-        ```
-        grid-template-columns: auto 1fr 2fr;
-        This will auto resize(scale) to fit the content. 
-        ```
+            - This will auto resize(scale) to fit the content
+            ```
+            grid-template-columns: auto 1fr 2fr;
+            ```
         - Now perhaps the best way to do this for responsiveness is to do:
-        ```
-        grid-template-columns: repeat(auto-fill, minmax());
-        Inside the minmax we want to define
-        1. the minimum size wanted
-        2. the maximum size wanted of each item. This means the container itself will auto adjust in size based on the viewport to keep that item the specified size.
-
-        so...
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        This will be minimum 300px. As soon as it goes above 300px in viewport, it expands the grid and keeps each item at 300px
-        ```
-    - CSS grid also allows us to define rows as well; not just columns. 
-        ```
-        If using fr for sizing, it will compare the other rows
-        grid-template-rows: 1fr 2fr
-
-        This will result in the 2nd row being twice as big as the first
-        If there are more than 2 rows in this example, the 1fr will keep
-        repeating after the 2fr
-        ```
+            ```
+            grid-template-columns: repeat(auto-fill, minmax());
+            ```
+            - Inside the minmax we want to define
+                1. the minimum size wanted
+                2. the maximum size wanted of each item. This means the container itself will auto adjust in size based on the viewport to keep that item the specified size. Meaning: 
+                ```
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                ```
+                - This will be minimum 300px. As soon as it goes above 300px in viewport, it expands the grid and keeps each item at 300px
+        
+    - CSS grid also allows us to define rows as well; not just columns
+        - If using fr for sizing, it will compare the other rows
+            ```
+            grid-template-rows: 1fr 2fr
+            ```
+            - This will result in the 2nd row being twice as big as the first
+            - If there are more than 2 rows in this example, the 1fr will keep repeating after the 2fr
     - Now everything above was done within a container. What if we want to apply CSS grid to our functions? 
         - We can specify a certain item to cover a certain amount of grid areas.
-        ```
-        .element-item-here {    
-            grid-column-start: 1;
-            grid-column-end: 4;
-        }
-        This will make that item cover the size of 1 to 4 grids. 
-        ```
+            ```
+            .element-item-here {    
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+            This will make that item cover the size of 1 to 4 grids. 
+            ```
         - The short-hand way to do this is:
-        ```
-        .element-item-here {
-            grid-column: 1/4;
-        }
-        ```
+            ```
+            .element-item-here {
+                grid-column: 1/4;
+            }
+            ```
         - Another way to do this is to span it across a few grids. This means there is no start area for it, and it will take up that space wherever. It will, however, never span less than the amount specified.
-        ```
-        .element-item-here {
-            grid-column: span 2;
-        }        
-        ```
-        - The problem with this is that it removes responsiveness because it makes sure the specified size matches what we told it to do.To help with responsiveness, we can add a '-1' that means it will go all-the-way to the end of the viewport.
-        ```
-        .element-item-here{
-            grid-column: 1/-1;
-        }
-        ```
+            ```
+            .element-item-here {
+                grid-column: span 2;
+            }        
+            ```
+        - The problem with this is that it removes responsiveness because it makes sure the specified size matches what we told it to do. To help with responsiveness, we can add a '-1' that means it will go all-the-way to the end of the viewport.
+            ```
+            .element-item-here{
+                grid-column: 1/-1;
+            }
+            ```
 
-### Section 6: Website Setup
-1. #### ***Bootstrap***
-    - The purpose of using things like Bootstrap is the same as using HubSpot; modules and snippets of code are already built out and you can search their database of what you are looking for, and adapt it for your own needs.
-    - The interesting thing with bootstrap is that we don't even have to download the files if we don't want to. We can add their CDN (Content Delivery Network) css/js href link in our header. 
-    - After some googling, it seems most devs will use it minimally. For example, maybe a button or a simple function. Or maybe they'll use it to get a quick site prototype up and make sure the backend works. Then they'll just redo it with cleaner code.
-    - The majority of bootstrap elements can be done just using flexbox and CSS grids, and knowing bootstrap isn't exactly impressive on a resume. 
-    - Any element definitions we make within our stylesheet will override bootstrap items.
+### Section 5: Responsiveness
+1. #### ***Responsiveness Learning***
+    - Links:
+        - 
+        - 
+        - 
+2. #### ***Misc Responsiveness***
+    - To make a top nav sticky on scroll, we simply need to add a class to the nav, and then do this in the CSS:
         ```
-        So if we define a bootstrap button like:
-        btn-danger
-        in the style.css as
-
-        .btn-danger {
-            background-color: orange;
-        }
-
-        It will override the bootstrap button color of red.
-        ```
-    - Bootstrap's power comes from the responsiveness of its grid system. 
-        - The layout is done via a column format: 12 total
-        - In the div class itself - called 'col' as an element name by bootstrap, you can specify it changing as it moves across screen sizes, as seen here: https://getbootstrap.com/docs/5.1/layout/grid/
-        - You can specify multiple different attributes in the div class, meaning you can have it do different actions as it shrinks and expands. For example, having a mobile menu expand outward when it goes into a 1920 screen.
-        ```
-        An example of code would be:
-        <div class="row">
-            <div class="col" col-sm-6 col-md-12 col-lg-12">
-            1 of 2
-            <div class="col" col-sm-3 col-md-6 col-lg-12">
-            1 of 2
-        </div>
-        Whereas the numbers next to the size are the width size out of the total of the 12 columns that bootstrap uses. 
-        ```
-        - So if we have something like a header or a section, we can apply the column layout to it, like so:
-        ```
-        <header class="text-center col-12"> </header>
-        or
-        <section class="text-center col-12"> </section>
-        ```
-
-2. #### ***Quick Code***
-    - Sometimes our browser has built-in CSS that causes white space / margins around our page. We can remove that in the CSS like so:
-        ```
-        body {
-            margin: auto 0;
+        .sticky {
+            position: fixed;
+            top: 0;
+            width: 100%;
         }
         ```
     - For a full responsive background image, you can just get css code from css-tricks
@@ -764,91 +716,94 @@ I'll keep things barebones for my own understanding while providing some referen
             background-size: cover;
         }
         ```
+3. #### ***Media Queries***
+    - More help: 
+        - https://css-tricks.com/a-complete-guide-to-css-media-queries/
+        - https://www.w3schools.com/css/css_rwd_mediaqueries.asp
+        - https://www.w3schools.com/css/css3_mediaqueries_ex.asp
+    - These typically target certain viewport ranges in order to apply custom styles for responsive design, or they detect system preferences and make adaptations based on those, ex: light and dark settings
+
+
+### Section 6: Frameworks
+1. #### ***Bootstrap***
+    - The purpose of using things like Bootstrap is that modules of code are already built-out and you can search their database of what you are looking for
+        - We don't even have to download the files if we don't want to. We can add their CDN (Content Delivery Network) css/js href link in our header. 
+    - Any element definitions we make within our stylesheet will override bootstrap items
+        - So if we define a bootstrap button like
+            ```
+            btn-danger
+            in the style.css 
+            
+            as
+
+            .btn-danger {
+                background-color: orange;
+            }
+            ```
+        - It will override the bootstrap button color of red.
+    - Bootstrap's power comes from the responsiveness of its grid system 
+        - The layout is done via a column format: 12 total
+        - In the div class itself - called 'col' as an element name by bootstrap, you can specify it changing as it moves across screen sizes, as seen here: https://getbootstrap.com/docs/5.1/layout/grid/
+        - You can specify multiple different attributes in the div class, meaning you can have it do different actions as it shrinks and expands. For example, having a mobile menu expand outward when it goes into a 1920 screen.
+            ```
+            An example of code would be:
+            <div class="row">
+                <div class="col" col-sm-6 col-md-12 col-lg-12">
+                1 of 2
+                <div class="col" col-sm-3 col-md-6 col-lg-12">
+                1 of 2
+            </div>
+            ```
+            - Whereas the numbers next to the size are the width size out of the total of the 12 columns that bootstrap uses. 
+        - So if we have something like a header or a section, we can apply the column layout to it, like so:
+            ```
+            <header class="text-center col-12"> </header>
+            or
+            <section class="text-center col-12"> </section>
+            ```
     - Bootstrap offers an easy-to-copy meta tag to copy for responsiveness. You can grab this off this page: https://getbootstrap.com/docs/5.1/getting-started/introduction/
         ```
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         ```
         - Viewport is the user's visible area on the page. This means that we are telling the browser that this page will be designed for mobile first, and content will expand from there. 
-    - Bootstrap offers some quick classes that can easily be added to our HTML instead of having to do it via CSS. For example:
-        ```
-        So if wanted to change our H1 to all uppercase
-        <h1 class="text-uppercase"> Text here </h1>
-        ```
+    - Bootstrap offers some quick classes that can easily be added to our HTML instead of having to do it via CSS 
         - To look up other bootstrap classes, just do a search here: https://getbootstrap.com/docs/5.1/getting-started/introduction/
-        - So if we wanted to add a button style, we searched for buttons and found the class. We would add this to our already-created HTML button tag, with some common sense. Remove the 'type' part they have.
-        ```
-        <button class="btn btn-primary">Primary</button>
-        ```
-        - Now we can take this a step further, and custom these quick classes to our liking via css. First we would make them our own custom element. Using the above example: 
-        ```
-        Add name-here after btn-primary
-        <button class="btn btn-primary name-here">Primary</button>
-        ```
-        - Then we just add the new class to the CSS
-        ```
-        .name-here {
-            padding: 1rem 2rem;
-        }
-        ```
-        - And/or we can specify the general class as an element and alter that
-        ```
-        .btn {
-            font-weight: 700;
-        }
-        ```
-        - If we add to the next one, we can 
-        ```
-        .btm-primary {
-            background-color: #f05F44;
-        }
-        ```
+        - So if wanted to change our H1 to all uppercase
+            ```
+            <h1 class="text-uppercase"> Text here </h1>
+            ```
+        - So if we wanted to add a button style, we searched for buttons and found the class. We would add this to our already-created HTML button tag. Remove the 'type' part they have.
+            ```
+            <button class="btn btn-primary">Primary</button>
+            ```
+        - Now we can take this a step further, and customize these quick classes to our liking via css. First we would make them our own custom element. Using the above example: 
+            ```
+            Add name-here after btn-primary
+            <button class="btn btn-primary name-here">Primary</button>
+            ```
+            - Then we just add the new class to the CSS
+                ```
+                .name-here {
+                    padding: 1rem 2rem;
+                }
+                ```
+            - And/or we can specify the general class as an element and alter that
+                ```
+                .btn {
+                    font-weight: 700;
+                }
+                ```
+            - If we add to the next one, we can 
+                ```
+                .btm-primary {
+                    background-color: #f05F44;
+                }
+                ```
     - With Bootstrap, we can add h-100 to a class to do 100% height. A good example is using this with a div container to make sure it utilizes the whole page:
         ```
         <div class="container d-flex align-items-center h-100"></div>
         d-flex is activating flexbox via bootstrap
         align-items-center centers via bootstrap
         h-100 makes sure the container height is always 100%
-        ```
-    - animate.style offers some easy CSS we can plug-and-play with. We can include it in our HTML via this, similar to bootstrap: 
-        ```
-        <head>
-              <link
-                rel="stylesheet"
-                href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-                />
-        </head>
-        ```
-        - Once we want to animate something, we can just copy the class from animate.style and insert it:
-        ```
-        every class starts off with animate__animated
-        animate__bounceIn //this was copied from site
-        <h1 class="animate__animated animate__bounceIn">H1 text here</h1> //how to insert
-        ```
-        - their page has easy-to-follow instructions for adding css or infinite animation properties
-    - Media Queries are used to specify what is the intended use case of the webpage, and does that change when the page is used at different sizes. Using these can be good to resolve potential issues the site is having rendering things properly.
-        ```
-        @media only screen //says 'this is intended use case'
-        @media only screen and (max-width: 600px) {
-
-        } //says 'use these properties that we are about to define,
-        but only when the max width is 600px. As soon as this is less
-        than 600px in width, apply the secondary defined properties.
-
-        @media only screen and (max-width: 600px) {
-            .custom-element-reference {
-                font-size: 0.5em;
-                padding: 0;
-            }
-        }
-        //so now when we pull the screen past 600px, it restores
-        the original default sizing with our specified font-size
-        ```
-    - To make a top nav sticky on scroll, we simply need to add a class to the nav, and then do this in the CSS:
-        ```
-        .sticky {
-            position: fixed;
-            top: 0;
-            width: 100%;
-        }
         ```
