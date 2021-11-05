@@ -13,17 +13,6 @@ I'll keep things barebones for my own understanding while providing some referen
     - https://overapi.com/css
     - https://cssreference.io/
     - https://css-tricks.com/almanac/
-- CSS Grid
-    - https://grid.malven.co/
-    - https://css-tricks.com/snippets/css/complete-guide-grid/
-- CSS Flexbox
-    - https://darekkay.com/flexbox-cheatsheet/
-    - https://www.freecodecamp.org/news/understanding-flexbox-everything-you-need-to-know-b4013d4dc9af/
-    - https://css-tricks.com/snippets/css/a-guide-to-flexbox/
-- HTML/CSS Design Tools
-    - https://animate.style/
-    - https://paletton.com/#uid=1000u0kllllaFw0g0qFqFg0w0aF
-    - https://html-css-js.com/html/character-codes/
 
 ## Table of Contents
 - [HTML Journey Notes](#html-journey-notes)
@@ -35,7 +24,6 @@ I'll keep things barebones for my own understanding while providing some referen
     - [Section 4: Box Model and Page Structure](#section-4-box-model-and-page-structure)
     - [Section 5: Responsiveness](#section-5-responsiveness)
     - [Section 6: Frameworks](#section-6-frameworks)
-
 
 ### Section 1: HTML Basics
 - HTML is creating the structure of the page, and CSS is the design
@@ -89,7 +77,7 @@ I'll keep things barebones for my own understanding while providing some referen
         ```
         <!-- this is a comment -->
         ```
-    - **If working within the body element with no other elements inside, it will just output 1 long line of text without proper formatting.** 
+    - If working within the body element with no other elements inside, it will just output 1 long line of text without proper formatting
 
     - Elements 
         - In HTML, almost everything is pieces of content wrapped in some sort of container. Almost all elements need an opening and closing tag. 
@@ -556,6 +544,8 @@ I'll keep things barebones for my own understanding while providing some referen
         - The 'Flex' property is shorthand for flex-grow, flex-shrink, and flex-basis
             - The easiest way to think of this is: max, min, ideal sizes
             - Some help: 
+                - https://darekkay.com/flexbox-cheatsheet/
+                - http://flexboxgrid.com/
                 - https://css-tricks.com/understanding-flex-grow-flex-shrink-and-flex-basis/
                 - https://css-tricks.com/the-thought-process-behind-a-flexbox-layout/
         - flex default values are:
@@ -603,6 +593,7 @@ I'll keep things barebones for my own understanding while providing some referen
             - However, those rows may need alignment in relation to the content that is within those div's. This is where CSS Grid shines.
             - CSS Grid also can do things like purposley overlap content
     - Some help:
+        - https://grid.malven.co/
         - https://css-tricks.com/snippets/css/complete-guide-grid/
         - https://learncssgrid.com/#grid-container
     - Once we determine CSS grid is the way to go, we need to create a container and put everything in there
@@ -807,3 +798,4 @@ I'll keep things barebones for my own understanding while providing some referen
         align-items-center centers via bootstrap
         h-100 makes sure the container height is always 100%
         ```
+2. #### ***Tailwind***
