@@ -296,6 +296,32 @@ I'll keep things barebones for my own understanding while providing some referen
         }
         ```
 2. #### ***CSS Selectors***
+    - A universal selector which will apply to everything unless something overrides it in the cascade.
+        ```
+        * {
+            property: value;
+        }
+        ```
+        - It is very common to do a 'global reset' with the universal selector to take away default page elements so we can easily customize the page ourself
+            ```
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            ```
+    - ID vs Class Selector
+        - ID isn't necessary, but is good if we only want to select that one line, as opposed to a Class which will reference the code underneath it, in a hierarchy. 
+            - You can also use the Class selector multiple times, whereas ID names can only be used to reference one thing
+        - For ID, we would write
+            ```
+            HTML:
+            <p id="author"> </p>
+
+            CSS: uses # instead of .
+            # author {
+                font-style: italic;
+            }
+            ```
     - Selectors are powerful as we can create our own elements, in that we can define a section that already might have a CSS element, but there are certain ones that we want excluded from the main CSS properties into their own definition
         - We want to define a class name in the HTML so we can identify our selectors in the CSS file. 
             - For example, adding a name to a paragraph section
@@ -333,12 +359,6 @@ I'll keep things barebones for my own understanding while providing some referen
         }
         ```
         - Now only the h2 text would have 100% width, not the paragraph text.<br><br>
-    - How to make a universal selector which will apply to everything unless something overrides it in the cascade.
-        ```
-        * {
-            property: value;
-        }
-        ```
     - Element within Element says that the selector only applies if Element2 is within Element1.
         - This example will only work if there is a paragraph within a div.
         ```
@@ -364,6 +384,30 @@ I'll keep things barebones for my own understanding while providing some referen
             display: inline-block;
         }
         ```
+    - Pseudo-Class Selectors
+        - We can create a condition for our selectors like so
+            ```
+            li:first-child {
+                font-weight: bold;
+            }
+            ```
+            - This says to select the first child of its parent container, in this case the 'li' probably has a parent of 'ul', and only that first child will be bold. 
+        - If we wanted to select a middle child element, we would have to do
+            ```
+            li:nth-child(2){
+                font-weight: bold;
+            }
+            ```
+            - In the '()' we would specify which child we want to select, with this '2' being the 2nd. We can also specify 'odd' or 'even'
+    - Pseudo-Elements
+        - Similar to pseudo classes, these specify things within an element on a micro scale; uses 2 colon's
+            ```
+            h1::first-letter {
+                font-style: italic;
+            }
+            ```
+    - When there are multiple declarations for the exact same element, CSS works in a non-cascading hierarchy
+        - ID is the highest priority, then class/pseudo-class, then element (p, header, etc)
 3. #### ***Text, Fonts, and Images***
     - Font placement
         - To add a Google Font to our page, we do this:
@@ -478,7 +522,6 @@ I'll keep things barebones for my own understanding while providing some referen
 1. #### ***Box Model***
     - **CSS box model structure**: https://www.w3schools.com/css/css_boxmodel.asp
         - Use 'inspect' browser dev tools to look at box model to better understand the layout<br><br>
-
     - The site should be broken up into sections by using Div's in the HTML
         - By doing this, we can easily align all elements within these containers and throughout the page, as opposed to trying to align 50 individual elements
         - Divs within divs is common when structuring a site, as it allows you to add margin between elements within a bigger div
@@ -491,6 +534,18 @@ I'll keep things barebones for my own understanding while providing some referen
             ```
             .custom-class {
                 border: 5px red;
+            }
+            ```
+        - It's best practice to encapulate all page content in one overarching div to easily manage page margins
+            ```
+            <div class="container">
+                <body>
+            </div>
+
+            .container {
+                width: 700px;
+                margin-left: auto;
+                margin-right: auto;
             }
             ```
     - Padding is the space on the inside of the div element border, whereas Margin is on the ouside of the div.
@@ -508,6 +563,21 @@ I'll keep things barebones for my own understanding while providing some referen
             padding: 5px 5px;
             padding: top/bottom left/right;
             ```
+    - The page 'normal flow' will be in the order of the box structure, but we can specify different elements to break away from that normal flow to be 'out of flow' and exist as if there are no boxes.
+        ```
+        button {
+            position: absolute;
+        }
+        ```
+        - You can add padding, make it left:0 or right:0, etc
+        - The problem with this is that it will position itself based on the viewport which will cause responsiveness issues, so it should be based on a parent element on the page 
+        ```
+        body {
+            position: relative;
+        }
+        ```
+        - For the button, we would have to make its parent of 'body' as a relative position so the element will always be positioned based on where it is on the page, instead of the viewport
+            - If we added it under a different container, it would be restricted by that container's dimensions
 
 2. #### ***Display Types***
     - Most elements will default to 
