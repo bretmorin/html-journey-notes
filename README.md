@@ -405,6 +405,10 @@ I'll keep things barebones for my own understanding while providing some referen
             h1::first-letter {
                 font-style: italic;
             }
+            or
+            p::first-line {
+                color: red;
+            }
             ```
     - When there are multiple declarations for the exact same element, CSS works in a non-cascading hierarchy
         - ID is the highest priority, then class/pseudo-class, then element (p, header, etc)
@@ -591,7 +595,12 @@ I'll keep things barebones for my own understanding while providing some referen
         - We then utilize div's with Flexbox and/or CSS Grid to add responsive elements and horizontal+vertical layouts <br><br>
 
 3. #### ***Flexbox***
-    - To activate flexbox in an element, we utilize this inside a container of some sort, or to a nested item
+    - Reference Guides:
+        - https://darekkay.com/flexbox-cheatsheet/
+        - http://flexboxgrid.com/
+        - https://css-tricks.com/understanding-flex-grow-flex-shrink-and-flex-basis/
+        - https://css-tricks.com/the-thought-process-behind-a-flexbox-layout/
+    - To activate flexbox in an element, we utilize this inside a container of some sort (any element with child elements)
         ```
         .container {
             display: flex;
@@ -601,60 +610,103 @@ I'll keep things barebones for my own understanding while providing some referen
             display: flex;
         }
         ```
-        - This assumed .container is part of a div, so we are saying that everything inside that div is part of flexbox. <br><br>
-    - We then can add different properties to the flexbox, such as:
-        ```
-        .container {
-            display: flex;
-            flex-wrap: wrap; //wraps images for a responsive design
-            justify-content: center; //centers all content responsively
-        }
-        ``` 
-    - Flexbox Properties:
-        - The 'Flex' property is shorthand for flex-grow, flex-shrink, and flex-basis
-            - The easiest way to think of this is: max, min, ideal sizes
-            - Some help: 
-                - https://darekkay.com/flexbox-cheatsheet/
-                - http://flexboxgrid.com/
-                - https://css-tricks.com/understanding-flex-grow-flex-shrink-and-flex-basis/
-                - https://css-tricks.com/the-thought-process-behind-a-flexbox-layout/
-        - flex default values are:
-            ```
-            div {
-                flex: 0 1 auto; //grow, shrink, basis
-            }
-            ```
-            ```
-            div {
-                flex: 1;
-            }
+        - This assumed .container is part of a div, so we are saying that everything inside that div - i.e. the children / flex items - are activated for flexbox now
+        - In Flexbox, the 'main axis' is horizontal, and the 'cross axis' is vertical
+    - Different properties are generally assigned to the container vs the flex items themselves
+        - Flex Container
+            - Justify Content on the main axis
+                - To center items horizontally, we would do
+                ```
+                justify-content: center;
+                ```
+                - This property can be used in other easy ways like this, which adds the same margin between horizontal items
+                    ```
+                    justify-content: space-between
+                    ```
+                - Other key properties:
+                    ```
+                    justify-content: flex-start;
+                    justify-content: flex-end;
+                    justify-content: space-around;
+                    justify-content: space-evenly;
+                    ```
+            - Align items on the cross axis
+                - By default, all flex items are horizontally as wide as to fit the content inside, like so
+                ```
+                align-items: stretch;
+                ```
+                - However, they are all the same vertical size as their tallest item, assuming one of them specifies the height
+                - If we do something like
+                    ```
+                    align-items: center;
+                    ```
+                    - The container will still take the height of the tallest item, but all other items will only be as tall as their content, and will be centered in the container vertically
+                - Other key properties:
+                    ```
+                    align-items: flex-start;
+                    align-items: flex-end;
+                    align-items: baseline;
+                    ```
+            - To create space between the flex items without having to use margin for every item, we can use gap
+                ```
+                gap: 0;
+                ```
+            - Flex Wrap will wrap images into a new line if they are too large
+                ```
+                flex-wrap: wrap;
+                flex-wrap: nowrap;
+                ```
+            - Flex Direction will define which is the main axis
+                ```
+                flex-direction: row;
+                flex-direction: column;
+                ```
+        - Flex Items
+            - Align Self can override the align-items property for individual flex items
+                ```
+                align-self: auto;
+                align-self: stretch;
+                etc...same as align-items, applied to one flex item
+                ```
+            - The Flex property consists of 3 flex definitions. The easiest way to think of this is as 'Max, Min, Ideal sizes'
+                - Flex Grow will determine if elements are allowed to grow as large as they can to fill the container, or not
+                    ```
+                    flex-grow: 0; //default value
+                    flex-grow: 1; //fills remaining space
+                    ```
+                    - If we set it to higher than a value of 1, then the flex item will be multiplied by the availability of empty space it takes over the other flex items
+                    ```
+                    flex-grow: 2; //double the empty space amount vs other flex items
+                    ```
+                - Flex Shrink tells the browser if it's allowed to shrink flex items to fit the container, or not
+                    ```
+                    flex-shrink: 1; //default value, will shrink
+                    ```
+                - Flex Basis is used to assign width to items within the container as a target size (recommendation), and the browser will figure out the optimal length to fit the items to the container, evenly.
+                    - So if the content is bigger than what we assign in Basis, then the content's size takes priority. If the content is smaller than what we put as Basis, then the target size will be hit
+                    ```
+                    flex-basis: auto; //default value
+                    ```
+                    - 'Auto' says that the content size is the ideal size
+                - Thus the Flex property defaults to:
+                    ```
+                    flex: 0 1 auto; //defaults
+                    /grow /shrink /basis
+                    ```
+                    - By setting flex to 1, we are saying to change flex grow to 1 and keep the other properties default
+                    ```
+                    flex: 1;
+                    or we could reference all values
+                    flex: 1 1 auto;
+                    ```
 
-            This actually means 
-            
-            div {
-                flex: 1 1 auto;
-            }
-            ```
-        - Flex Grow: how much the applied property would grow based on a comparison container 
-            - For example if we did 'flex: 2' to a div inside our container, we are saying that div should be 2x the size of the other div's
-            in that container.
-                ```
-                .flex-container .two {
-                    flex: 2 1 auto;
-                }
-                ```
-        - Flex Shrink: determines how much the flex item will shrink relative to the rest of the flex items in the flex container when there isn’t enough space on the row 
-            - Setting 'flex-shrink: 0;' would make the item never shrink
-            - Using the above example, if our 3 divs from above had a width declaration like: 
-                ```
-                width: 100px 
 
-                .flex container .two {
-                    width
-                }
-                and .flex-container was smaller than 300px, our divs would have to shrink to fit. 
-                ```
-        - Flex Basis: sets the initial size of a flex item so any growing or shrinking will start from that baseline size. <br><br>
+
+
+
+
+
+
 
 4. #### ***CSS Grid***
     - Difference between CSS Grid and Flexbox is that Grid can use horizontal and vertical simultaneously, while flexbox is one or the other based on div alignment
