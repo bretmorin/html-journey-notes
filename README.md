@@ -612,6 +612,7 @@ I'll keep things barebones for my own understanding while providing some referen
         ```
         - This assumed .container is part of a div, so we are saying that everything inside that div - i.e. the children / flex items - are activated for flexbox now
         - In Flexbox, the 'main axis' is horizontal, and the 'cross axis' is vertical
+        - The easiest way to align items with flexbox, is by creating a div around the elements you want, and assigning it as a flex display
     - Different properties are generally assigned to the container vs the flex items themselves
         - Flex Container
             - Justify Content on the main axis
@@ -633,7 +634,7 @@ I'll keep things barebones for my own understanding while providing some referen
             - Align items on the cross axis
                 - By default, all flex items are horizontally as wide as to fit the content inside, like so
                 ```
-                align-items: stretch;
+                align-items: stretch; //default value
                 ```
                 - However, they are all the same vertical size as their tallest item, assuming one of them specifies the height
                 - If we do something like
@@ -699,16 +700,8 @@ I'll keep things barebones for my own understanding while providing some referen
                     or we could reference all values
                     flex: 1 1 auto;
                     ```
-
-
-
-
-
-
-
-
-
 4. #### ***CSS Grid***
+    - Needs review - section imcomplete
     - Difference between CSS Grid and Flexbox is that Grid can use horizontal and vertical simultaneously, while flexbox is one or the other based on div alignment
         - Firstly, flexbox has more browser compatability
         - So if I have multiple div's in subsequent rows that have content in each other, it would be prudent to use flexbox to align the content inside those div's. 
@@ -810,7 +803,28 @@ I'll keep things barebones for my own understanding while providing some referen
         - 
         - 
         - 
-2. #### ***Misc Responsiveness***
+2. #### ***Media Queries***
+    - These are used to define breakpoints on screen size so we can define elements, for example
+        - This asks if the current viewport width is equal or smaller than 600px:
+            ```
+            @media (max-width: 600px)
+            ```
+            - If it is, then all the code that applies to this media query applies
+        - If there are 2 media queries like so:
+            ```
+            @media (max-width: 600px)
+            @media (max-width: 1200px)
+            ```
+            - And the user's phone size is 400px, then they are both valid. But the smaller number - 600px - will take precedence
+    - We would add css elements under the @media definition like so:
+        ```
+        @media (max-width: 1200px) {
+            .section-hero {
+                background-color: red;
+            }
+        }
+        ```
+3. #### ***Misc Responsiveness***
     - To make a top nav sticky on scroll, we simply need to add a class to the nav, and then do this in the CSS:
         ```
         .sticky {
