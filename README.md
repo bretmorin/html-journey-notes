@@ -476,9 +476,17 @@ I'll keep things barebones for my own understanding while providing some referen
         }
         this part says that when I hover, I want the image to scale to 1.1* its size
         ```
-
+4. #### ***Positioning Tricks***
+    - To make a top nav sticky on scroll, we simply need to add a class to the nav, and then do this in the CSS:
+        ```
+        .sticky {
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+        ```
 ### Section 3: Adaptive Sizing
-1. #### ***Sizing***
+1. #### ***Sizing Relevance***
     - We utilize more adaptive sizing rather than by pixels and percentages, as these tend to break when working with multiple screen sizes
         - It's good practice to specify the document HTML font-size initially so we can reference it through adaptive sizing later
             ```
@@ -592,7 +600,13 @@ I'll keep things barebones for my own understanding while providing some referen
         - For example, a simple paragraph in HTML is a block. Add a border to see what it looks like
         - By default they have a width of 100%. This could be limited by the parent element
             - Even if you put width at 50%, the blocks will still stack vertically.
-        - We then utilize div's with Flexbox and/or CSS Grid to add responsive elements and horizontal+vertical layouts <br><br>
+        - We then utilize div's with Flexbox and/or CSS Grid to add responsive elements and horizontal+vertical layouts 
+    - If we want to ever hide a section, we can do the following code within our container, instead of trying to comment everything out
+        ```
+        .container {
+            display: none;
+        }
+        ```
 
 3. #### ***Flexbox***
     - Reference Guides:
@@ -701,40 +715,54 @@ I'll keep things barebones for my own understanding while providing some referen
                     flex: 1 1 auto;
                     ```
 4. #### ***CSS Grid***
-    - Needs review - section imcomplete
-    - Difference between CSS Grid and Flexbox is that Grid can use horizontal and vertical simultaneously, while flexbox is one or the other based on div alignment
-        - Firstly, flexbox has more browser compatability
-        - So if I have multiple div's in subsequent rows that have content in each other, it would be prudent to use flexbox to align the content inside those div's. 
-            - However, those rows may need alignment in relation to the content that is within those div's. This is where CSS Grid shines.
-            - CSS Grid also can do things like purposley overlap content
-    - Some help:
+    - Reference Guides:
         - https://grid.malven.co/
         - https://css-tricks.com/snippets/css/complete-guide-grid/
         - https://learncssgrid.com/#grid-container
-    - Once we determine CSS grid is the way to go, we need to create a container and put everything in there
-        ```
-        <div class="container"></div>
-
-        .container {
-
-        }
-        ```
-    - We then have to add CSS to our container, similar to flexbox, and change the display type. We also need to add grid-template-columns to tell the page how many columns we want to use
-        - this will act as 2 grids because there is 2 numbers
+    - The only downside to using CSS Grid is it doesn't have the same browser compatability as Flexbox, though it's still good
+    - Just like Flexbox, we have a grid container, and grid items, as opposed to flex container and items
+        - We also want to activate it within our container with
             ```
             .container {
                 display: grid;
-                grid-template-columns: 300px 300px; 
             }
             ```
-    - Another one we can add is grid-gap, which will add spacing between grid items
+    - Now we have to define our 2-dimensional layout - i.e. columns and rows
+        - To define width values, we use
+            ```
+            .container {
+                grid-template-columns: 100px 100px;
+            }
+            ```
+            - The following will generate 2 columns, because we put 2 numbers
+            - It will also make those columns with the width of 100px each, because those are the values we assigned
+            - Thus this will define how many rows we get, as we now have a min width amount, and all content will go underneath
+        - If we've never defined our height anywhere, then the height of each grid item would simply be the height of the content of the tallest grid item
+            - This means we can define the individual height of a grid item by just doing so within the grid item class, and that height won't change when we define the grid column height
+            - To define the column height, it's the same process
+                ```
+                .container {
+                    grid-template-rows: 100px 100px;
+                }
+                ```
+    - Grid relies on the Gap property and doesn't use margins
         ```
-        .container {
-            display: grid;
-            grid-template-columns: 300px 300px; 
-            grid-gap: 20px;
-        }
+        gap: 50px;
         ```
+        - This will create a gap between both columns and rows
+        - We can define separate gaps between the columns and rows, something that flexbox cannot do
+            ```
+            .container {
+                display: grid;
+                column-gap: 30px;
+                row-gap: 20px;
+            }
+            ```
+    - 
+   
+
+
+
     - CSS Grid offers its own responsive sizing usage: fraction - as-in a fraction of the total page size
         -  1 fr will only result in 1 column, while 1 fr 1fr will give 2 50% columns
             ```
@@ -798,12 +826,17 @@ I'll keep things barebones for my own understanding while providing some referen
             ```
 
 ### Section 5: Responsiveness
-1. #### ***Responsiveness Learning***
-    - Links:
-        - 
-        - 
-        - 
+1. #### ***Responsive Setup***
+    - The first thing we need to do is include this line of code in the head element
+        ```
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        ```
+        - This makes it so the page will match the screen's width when on smaller devices like Phones, as opposed to the normal behavior of zooming-out of the page to fit it on the screen
 2. #### ***Media Queries***
+    - Many devs like to group these in their own file, like 'queries.css'
+        - Make sure to link it in the HTML
+    - The best way to determine optimal breakpoints is to determine when the design breaks. So when testing and going through all device screen sizes, if the design breaks when browsing, for example, on the new iPhone, we can set a breakpoint there
+        - Breakpoints were typically determined based on the grouping of screen size categories. For example, all phones are under 600px, all vertical tablets under 900px, all horizontal tablets under 1200px, and all desktops are bigger
     - These are used to define breakpoints on screen size so we can define elements, for example
         - This asks if the current viewport width is equal or smaller than 600px:
             ```
@@ -825,14 +858,6 @@ I'll keep things barebones for my own understanding while providing some referen
         }
         ```
 3. #### ***Misc Responsiveness***
-    - To make a top nav sticky on scroll, we simply need to add a class to the nav, and then do this in the CSS:
-        ```
-        .sticky {
-            position: fixed;
-            top: 0;
-            width: 100%;
-        }
-        ```
     - For a full responsive background image, you can just get css code from css-tricks
         ```
         html { 
@@ -843,13 +868,6 @@ I'll keep things barebones for my own understanding while providing some referen
             background-size: cover;
         }
         ```
-3. #### ***Media Queries***
-    - More help: 
-        - https://css-tricks.com/a-complete-guide-to-css-media-queries/
-        - https://www.w3schools.com/css/css_rwd_mediaqueries.asp
-        - https://www.w3schools.com/css/css3_mediaqueries_ex.asp
-    - These typically target certain viewport ranges in order to apply custom styles for responsive design, or they detect system preferences and make adaptations based on those, ex: light and dark settings
-
 
 ### Section 6: Frameworks
 1. #### ***Bootstrap***
