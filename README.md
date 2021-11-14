@@ -719,7 +719,8 @@ I'll keep things barebones for my own understanding while providing some referen
         - https://grid.malven.co/
         - https://css-tricks.com/snippets/css/complete-guide-grid/
         - https://learncssgrid.com/#grid-container
-    - The only downside to using CSS Grid is it doesn't have the same browser compatability as Flexbox, though it's still good
+    - Most devs use CSS Grid in conjunction with Flexbox, opting for Grid when they have multiple grid items that need to be responsive, and opting for Flexbox when they have a single row or column by design
+        - The only downside to using CSS Grid is it doesn't have the same browser compatability as Flexbox, though it's still good
     - Just like Flexbox, we have a grid container, and grid items, as opposed to flex container and items
         - We also want to activate it within our container with
             ```
@@ -727,57 +728,117 @@ I'll keep things barebones for my own understanding while providing some referen
                 display: grid;
             }
             ```
-    - Now we have to define our 2-dimensional layout - i.e. columns and rows
-        - To define width values, we use
-            ```
-            .container {
-                grid-template-columns: 100px 100px;
-            }
-            ```
-            - The following will generate 2 columns, because we put 2 numbers
-            - It will also make those columns with the width of 100px each, because those are the values we assigned
-            - Thus this will define how many rows we get, as we now have a min width amount, and all content will go underneath
-        - If we've never defined our height anywhere, then the height of each grid item would simply be the height of the content of the tallest grid item
-            - This means we can define the individual height of a grid item by just doing so within the grid item class, and that height won't change when we define the grid column height
-            - To define the column height, it's the same process
+    - Grid Container Properties
+        - Now we have to define our 2-dimensional layout - i.e. columns and rows
+            - To define width values, we use
                 ```
                 .container {
-                    grid-template-rows: 100px 100px;
+                    grid-template-columns: 100px 100px;
                 }
                 ```
-    - Grid relies on the Gap property and doesn't use margins
-        ```
-        gap: 50px;
-        ```
-        - This will create a gap between both columns and rows
-        - We can define separate gaps between the columns and rows, something that flexbox cannot do
+                - The following will generate 2 columns, because we put 2 numbers
+                - It will also make those columns with the width of 100px each, because those are the values we assigned
+                - Thus this will define how many rows we get, as we now have a min width amount, and all content will go underneath
+            - If we've never defined our height anywhere, then the height of each grid item would simply be the height of the content of the tallest grid item
+                - This means we can define the individual height of a grid item by just doing so within the grid item class, and that height won't change when we define the grid column height
+                - To define the column height, it's the same process
+                    ```
+                    .container {
+                        grid-template-rows: 100px 100px;
+                    }
+                    ```
+        - Grid relies on the Gap property and doesn't use margins
             ```
-            .container {
-                display: grid;
-                column-gap: 30px;
-                row-gap: 20px;
-            }
+            gap: 50px;
             ```
-    - 
-   
+            - This will create a gap between both columns and rows
+            - We can define separate gaps between the columns and rows, something that flexbox cannot do
+                ```
+                .container {
+                    display: grid;
+                    column-gap: 30px;
+                    row-gap: 20px;
+                }
+                ```
+        - Just like in flexbox, we use justify and align to adjust the rows and columns
+            - To align items inside rows and columns (horizontally/vertically)
+                ```
+                justify-items: stretch; //horizontal
+                align-items: center; //vertical
+                ```
+                - Also has: 'start', 'end'
+            - To align entire grid inside grid container. This only applies if the container is larger than the grid
+                ```
+                justify-content: start;
+                align-content: center;
+                ```
+                - Also has: 'end', etc...
+    - Grid Items Properties
+        - To place a grid item into a specific cell based on line numbers, which are always listed in the inspect element grid lines area
+            ```
+            grid-column: <start line> / <end line>;
+            grid-row: <start line> / <end line>;
+            ```
+        - To overwrite justify-items / align-items for single items
+            ```
+            justify-self: stretch;
+            align-self: start;
+            ```
+            - Also has: 'center', 'end'
+    - Grid Item Sizing
+        - The problem with using px sizing is that it sets a hard size on grid items, and that means items can overflow a container if that size is breached
+        - CSS Grid offers its own responsive sizing usage: fraction - as-in a fraction of the total grid size
+            - 1 fr will only result in 1 column filling the remaining space, while 1fr 1fr will give 2 50% columns filling the remaining space (of the grid)
+                ```
+                grid-template-columns: 1fr 1fr;
+                ```
+            - In this example, the 3fr would result in half the grid spacing. This is because 3 + 1 + 1 + 1 = 6, and 3 being 1/2 of 6
+                ```
+                grid-template-columns: 3fr 1fr 1fr 1fr;
+                ```
+            - By adding 'auto' for a column, it will only fill the remaining grid space that is required to allow the content to be filled properly
+                ```
+                grid-template-columns: 3fr 1fr 1fr auto;
+                ```
+        - Shorthand for the above uses the 'repeat' function
+            - The first number is the amount of columns, and the 2nd number is how large they should be
+                ```
+                grid-template-columns: repeat(4, 1fr);
+                ```
+        - Rows have height defined by the tallest content, or if we previously defined the height either for the entire container or one element. This means that 1fr would be that tallest height
+        - You can specify different elements to be in specific grid columns or rows
+            - When you inspect the page, click on the 'grid' button in the html and you'll see the grid layout which makes it easier to count
+                ```
+                .random-item-in-grid {
+                    grid-column: 2/4;
+                }
+                ```
+                - This would move the .random item to between the 2nd and 4th grid columns
+                ```
+                .random-item-in-grid {
+                    grid-row: 1/2;
+                }
+                ```
+                - This would move the .random item between the 1st and 2nd row
+            - This can also be done without having to specify the exact column, and rather just using the span command to have the grid cell 'span' a specific amount of cells
+                ```
+                .random-item-in-grid {
+                    grid-column: 1, span 3;
+                }
+                ```
+                - If we simply want an item to expand all the way to the end without thinking about it, we can just use -1
+                ```
+                .random-item-in-grid {
+                    grid-column: 1, -1;
+                }
+                ```
 
 
 
-    - CSS Grid offers its own responsive sizing usage: fraction - as-in a fraction of the total page size
-        -  1 fr will only result in 1 column, while 1 fr 1fr will give 2 50% columns
-            ```
-            grid-template-columns: 1fr 1fr;
-            ```
-        - There is a shortcut for fractions with the repeat property
-            - This will repeat 1fr, 3 times
-            ```
-            grid-template-columns: repeat(3, 1fr);
-            ```
-        - There is another way to do this with the auto property
-            - This will auto resize(scale) to fit the content
-            ```
-            grid-template-columns: auto 1fr 2fr;
-            ```
+
+
+
+
         - Now perhaps the best way to do this for responsiveness is to do:
             ```
             grid-template-columns: repeat(auto-fill, minmax());
@@ -790,40 +851,6 @@ I'll keep things barebones for my own understanding while providing some referen
                 ```
                 - This will be minimum 300px. As soon as it goes above 300px in viewport, it expands the grid and keeps each item at 300px
         
-    - CSS grid also allows us to define rows as well; not just columns
-        - If using fr for sizing, it will compare the other rows
-            ```
-            grid-template-rows: 1fr 2fr
-            ```
-            - This will result in the 2nd row being twice as big as the first
-            - If there are more than 2 rows in this example, the 1fr will keep repeating after the 2fr
-    - Now everything above was done within a container. What if we want to apply CSS grid to our functions? 
-        - We can specify a certain item to cover a certain amount of grid areas.
-            ```
-            .element-item-here {    
-                grid-column-start: 1;
-                grid-column-end: 4;
-            }
-            This will make that item cover the size of 1 to 4 grids. 
-            ```
-        - The short-hand way to do this is:
-            ```
-            .element-item-here {
-                grid-column: 1/4;
-            }
-            ```
-        - Another way to do this is to span it across a few grids. This means there is no start area for it, and it will take up that space wherever. It will, however, never span less than the amount specified.
-            ```
-            .element-item-here {
-                grid-column: span 2;
-            }        
-            ```
-        - The problem with this is that it removes responsiveness because it makes sure the specified size matches what we told it to do. To help with responsiveness, we can add a '-1' that means it will go all-the-way to the end of the viewport.
-            ```
-            .element-item-here{
-                grid-column: 1/-1;
-            }
-            ```
 
 ### Section 5: Responsiveness
 1. #### ***Responsive Setup***
