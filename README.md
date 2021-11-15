@@ -832,25 +832,45 @@ I'll keep things barebones for my own understanding while providing some referen
                     grid-column: 1, -1;
                 }
                 ```
-
-
-
-
-
-
-
-        - Now perhaps the best way to do this for responsiveness is to do:
+    - Grid movement of items within a container
+        - This can be done the same way as flexbox, where we use justify and align to move the grouping of items, along the container tracks, within a container
             ```
-            grid-template-columns: repeat(auto-fill, minmax());
+            .container {
+                display: grid;
+                justify-content: center;
+            }
             ```
-            - Inside the minmax we want to define
-                1. the minimum size wanted
-                2. the maximum size wanted of each item. This means the container itself will auto adjust in size based on the viewport to keep that item the specified size. Meaning: 
-                ```
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                ```
-                - This will be minimum 300px. As soon as it goes above 300px in viewport, it expands the grid and keeps each item at 300px
-        
+            - This will move all items horizontally within that container to the center of the container
+                - Other properties like 'space-between', 'start', 'end' work just like in flexbox
+            ```
+            .container {
+                display: grid;
+                align-content: center;
+            }
+            ```
+            - This will align the grid items vertically within the container. Can also use the same properties as justify
+    - Aligning the grid items inside the grid container cells
+        - By using 'align-items' we can move items vertically inside the grid cell
+            ```
+            .container {
+                display: grid;
+                align-items: center;
+            }
+            ```
+            - Or if we want to align horizontally
+            ```
+            .container {
+                display: grid;
+                justify-items: center;
+            }
+            ```
+        - To override these settings on an individual item, we use align-self to a specific item
+            ```
+            .specific-item {
+                align-self: end;
+                justify-self: end;
+            }
+            ```
 
 ### Section 5: Responsiveness
 1. #### ***Responsive Setup***
