@@ -533,6 +533,12 @@ I'll keep things barebones for my own understanding while providing some referen
         However, chances are the alignment is off. We can add another property like:
         background-size: cover;
         ```
+    - Adding a border around an SVG shape
+        ```
+        .module {
+            stroke: #colorhere;
+        }  
+        ```
     - We can add a property like transform and hover to add some animations
         ```
         img {
@@ -1284,9 +1290,62 @@ I'll keep things barebones for my own understanding while providing some referen
             box-shadow: 0 12px 24px rgba(0,0,0,.25);
         }
         ```
-    - 
+    - We have to try and integrate the buttons now
+        - Buttons come with a border by default, so it's good practice to set that border to none
+            ```
+            .btn {
+                border: none;
+                background-color: #fff;
+                height: 40px;
+                width: 40px;
+            }
+            ```
+        - This will size the button boxes the way we want, but the icon will probably be small. We can change this by referencing our button icon class that we made
+            ```
+            .btn-icon {
+                height: 24px;
+                width: 24px;
+            }
+            ```
+        - Everything is visible now, but the width is not respected as the buttons are flex items. In order for us to 'extract' the buttons to being outside the flow of the page, we can use position absolute
+            ```
+            .btn {
+                position: absolute;
+            }
+            ```
+            - But by doing this to the buttons, we need to reference a parent element and set that position to relative
+            ```
+            .carousel {
+                position: relative;
+            }
+            ```
+        - Now we can finish formatting the buttons
+            - Add a 'stroke' color property to the button
+            - Then make sure the icon is centered inside the button by setting the btn to flexbox, as the btn-icon is a child
+                ```
+                .btn {
+                    ...
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                ```
+        - We have to separate the buttons now with two classes
+            ```
+            <button class ="btn btn--left">
+            <button class ="btn btn--right">
+            ```
+            - Then position them quickly
+            ```
+            .btn--left {
+                left: 0;
+            }
 
-
+            .btn--right {
+                right: 0;
+            }
+            ```
+        
 
 
 
