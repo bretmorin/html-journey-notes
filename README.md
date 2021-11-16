@@ -589,7 +589,6 @@ I'll keep things barebones for my own understanding while providing some referen
             }
             ```
         - This also says that everything compounds ontop of each other, so it can get out of hand if we keep adding 'em' in the same div. REM's solves the compounding issue we can face <br><br>
-    
     - For responsive height/width sizing, vh (viewport height) or vw is a best-practice sizing method
         - So for having an element always be 50% of viewport height:
             ```
@@ -597,6 +596,14 @@ I'll keep things barebones for my own understanding while providing some referen
                 height: 50vh 
             }
             ```
+    - For making an item bigger by specifying a decimal amount, we can simply use transform like so:
+        ```
+        img {
+            height: 200px;
+            transform: scale(1.5);
+        }
+        ```
+        - This will make the image 1.5x bigger than the height of 200px
 
 ### Section 4: Box Model and Page Structure
 1. #### ***Box Model***
@@ -1067,9 +1074,217 @@ I'll keep things barebones for my own understanding while providing some referen
         flex-direction: column;
         ```
         - One note is that when switching flexbox direction to be column, all directional properties are reversed; align-items will be vertical instead of horizontal, for example
-    - At this point most of the styling should be complete, and we now have to align everything properly. 
-
-
+    - At this point most of the styling should be complete, and we now have to add the box border
+        ```
+        .item {
+            box-shadow: 0 0 32px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+        }
+        ```
+    - Now we have to structure the box. Since we are doing multiple columns with multiple rows, we should use CSS Grid
+        ```
+        .item {
+            box-shadow: 0 0 32px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+        }
+        ```
+        - Then we have to move the individual grid item to where we want
+        ```
+        .hidden-box {
+            grid-column: 2;
+        }
+        ```
+        - Add some gap to space-out the columns
+        ```
+        .item {
+            box-shadow: 0 0 32px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            column-gap: 24px;
+            row-gap: 32px;
+        }
+        ```
+        - If things aren't aligned, align them vertically or horizontally
+        ```
+        .item {
+            align-items: center;
+        }
+        ```
+    - We can then copy-and-paste the div item as many times as we need, and make sure to change naming
+    - Given we want to have the accordion template as a vertical column, it's easiest to use flexbox
+        ```
+        .accordion {
+           width: 700px;
+           margin: 100px auto; 
+           display: flex;
+           flex-direction: column;
+           gap: 24px;
+        }
+        ```
+    - To hide the content of the remaining items to a default closed state:
+        ```
+        .hidden-box {
+            grid-column: 2;
+            display: none; //hides content of all items
+        }
+        ```
+        - Then change the color of the left column numbers for a default state
+        ```
+        .number {
+            color: #ced4da;
+        }
+        ``` 
+    - Now we have to add an 'open' element for when those boxes are triggered
+        - Add 'open' to the item div class names
+            ```
+            <div class="item open">
+            </div>
+            ```
+        - Then add design elements to the open state, like so
+            ```
+            .open {
+            border-top: 4px solid #087;
+            }
+            ```
+    - Now we have to display the hidden content, which we just put as a display: none
+        - In our Style css, we have to say that the hidden box is a child element of open. And when that parent element has the class of 'open', then only will this selector apply 
+            - Then we set the display property back to block
+            ```
+            .open .hidden-box {
+                display: block;
+            }
+            ```
+        - Then we should do the same for the number colors
+            ```
+            .open .number {
+                color: #087;
+            }
+3. #### ***Carousel Component***
+    - Just like in the Accordion, specify basic body font, color, and line-height styles and keep it in one page
+    - This example we are using an image on the left and a quote on the right
+    - Add a div with the class 'carousel' and add the image inside. Then add a blockquote with a class, then the testimonial text in a paragraph form. Just below that paragraph we need another paragraph for the author
+        ```
+        <div class="carousel">
+            <img src="maria.jpg" alt="Maria de Almeida"/>
+            <blockquote class="testimonial">
+                <p class="testimonial-text">
+                    "Lorem ipsum dolor sit amet consectetur 
+                    adipisicing elit. Eius cum repudiandae 
+                    ab cupiditate nesciunt nobis officia 
+                    similique error consequatur laborum 
+                    minima optio tempora, asperiores aut, 
+                    doloremque debitis tempore ea culpa.""
+                </p>
+                <p class="testimonial-author">
+                    Maria di Almeida
+                </p>
+                <p class="testimonial-job">
+                    Senior Product Manager at EDP
+                </p>
+            </blockquote>
+        </div>
+        ```
+    - Then we need to add the buttons on the left and right side, but still within the big 'carousel' div
+        - Add a button via HTML and copy a SVG icon for left scroll - here I used chevron-left
+        - Then change the pasted class to whatever wanted. In this case, changed to a child name of button class name
+            ```
+            <button class="btn">
+                <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <button class="btn">
+                <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+            ```
+    - Add a fixed height to the image, which will also add an auto width in order to keep the same proportion, since we didn't specify anything in our HTML
+        ```
+        img {
+            height: 200px;
+        }
+        ```
+    - Then we have to add dimensions and stylize the carousel class
+        ```
+        .carousel {
+            width: 800px;
+            margin: 100px auto;
+            padding: 32px;
+            background-color: #087; 
+            border-radius: 8px;
+            color: #FFF;
+        }
+        ```
+        - Add the border-radius to the img class as well, since this example has the image hugging the corners
+    - Next stylize the text
+        ```
+        .testimonial-text {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: 32px;
+            color: #e6fcf5;
+        }
+        .testimonial-author {
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: #c3fae8;
+        }
+        .testimonial-job {
+            font-size: 12px;
+            color: #c3fae8;
+        }
+        ```
+    - We can now lineup the content horizontally, with flexbox being a good option
+        ```
+        .carousel {
+            width: 800px;
+            margin: 100px auto;
+            padding: 32px;
+            background-color: #087; 
+            border-radius: 8px;
+            display: flex;          //added
+            align-items: center;    //added
+            gap: 32px;              //added
+        }
+        ```
+    - In this example, the image overlaps the quote box, so we use the transform element
+        - The buttons may be screwing-up the alignment at this point, so just comment them out until the rest of the carousel is setup and stylized
+        ```
+        img {
+            height: 200px;
+            border-radius: 8px;
+            transform: scale(1.5);
+        }
+        ```
+    - We need to add some padding on the left side of the carousel to make the image overlap the carousel better
+        ```
+        .carousel {
+            width: 800px;
+            margin: 100px auto;
+            padding: 32px;
+            padding-left: 86px;     //added
+            background-color: #087; 
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        ```
+    - Now add the shadow to the image
+        ```
+        img {
+            height: 200px;
+            border-radius: 8px;
+            transform: scale(1.5);
+            box-shadow: 0 12px 24px rgba(0,0,0,.25);
+        }
+        ```
+    - 
 
 
 
