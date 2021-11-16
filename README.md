@@ -1067,8 +1067,7 @@ I'll keep things barebones for my own understanding while providing some referen
         flex-direction: column;
         ```
         - One note is that when switching flexbox direction to be column, all directional properties are reversed; align-items will be vertical instead of horizontal, for example
-
-
+    - At this point most of the styling should be complete, and we now have to align everything properly. 
 
 
 
