@@ -22,8 +22,9 @@ I'll keep things barebones for my own understanding while providing some referen
     - [Section 2: CSS Basics](#section-2-css-basics)
     - [Section 3: Adaptive Sizing](#section-3-adaptive-sizing)
     - [Section 4: Box Model and Page Structure](#section-4-box-model-and-page-structure)
-    - [Section 5: Responsiveness](#section-5-responsiveness)
-    - [Section 6: Frameworks](#section-6-frameworks)
+    - [Section 5: Web Components and Layout Patterns](#section-5-web-components-and-layout-patterns)
+    - [Section 6: Responsiveness](#section-6-responsiveness)
+    - [Section 7: Frameworks](#section-7-frameworks)
 
 ### Section 1: HTML Basics
 - HTML is creating the structure of the page, and CSS is the design
@@ -255,7 +256,6 @@ I'll keep things barebones for my own understanding while providing some referen
         <link rel="stylesheet" type="text/css" href="style.css">
         ```
         - Type means the media type and rel means relationship to this (html) file. Then in href, put the link to style.css, wherever it lies in the folder. Will have to do this to every HTML page I want to share that particular css file. I can do different styles on different pages by adding a different css file for those pages, and linking appropriately.<br/><br/>
-        
     - Commenting-out:
         ```
         Can use command+/ hotkey, or:
@@ -385,6 +385,32 @@ I'll keep things barebones for my own understanding while providing some referen
         }
         ```
     - Pseudo-Class Selectors
+        - Select multiple elements by using a comma. This is often done as the start of the CSS with something like font family, or assigning colors to all headers, and we would later override individual elements as we want
+            ```
+            h1, p {
+                font-color: blue;
+            }
+            ```
+            - If this gets long, it's good pratice to separate selectors by line
+            ```
+            h1,
+            p,
+            body {
+                font-color: blue;
+            }
+            ```
+        - To select all child elements within another element, we add a space. This example selects all p elements within a footer element
+            ```
+            footer p {
+                font-color: blue;
+            }
+            ```
+            - Just be wary if you have multiple parent elements that meet the same conditions. If that is the case, we can do this with another parent layer
+            ```
+            article header p {
+                font-color: blue;
+            }
+            ```
         - We can create a condition for our selectors like so
             ```
             li:first-child {
@@ -412,7 +438,8 @@ I'll keep things barebones for my own understanding while providing some referen
             ```
     - When there are multiple declarations for the exact same element, CSS works in a non-cascading hierarchy
         - ID is the highest priority, then class/pseudo-class, then element (p, header, etc)
-3. #### ***Text, Fonts, and Images***
+
+3. #### ***Text, Fonts, Colors, and Images***
     - Font placement
         - To add a Google Font to our page, we do this:
             1. Get the tag html from google fonts, for ex: 
@@ -423,7 +450,7 @@ I'll keep things barebones for my own understanding while providing some referen
                 ```
                 <head>
                 ```
-            3. Google Fonts will say what to add to our CSS, for ex:
+            3. 'font-family' is how we define what font we want to use. Most people use 'sans-serif' as a fallback as everyone has it installed on their computer. Google Fonts will say what to add to our CSS, for ex:
                 ```
                 font-family: 'Roboto', sans-serif;
                 ```
@@ -451,10 +478,51 @@ I'll keep things barebones for my own understanding while providing some referen
             text-transform: uppercase;
         }
         ```
-    - font weight we can specify a number or something like bold
+    - Font Weight we can specify a number or something like bold, and font style can specify things like italic
         ```
         p {
             font-weight: bold;
+            font-style: italic;
+        }
+        ```
+    - Line Height will add a multiplier to the line spacing 
+        ```
+        p {
+            line-height: 1.5;
+        }
+        ```
+        - This adds 1.5x the amount of line spacing from the default
+        - Good to add this to the body as 1, and then change if needed on specific elements
+    - Colors and real-world usage
+        - There is Hexadecimal and RGB. Most devs use Hex codes unless transparency is needed. This is how to write both 
+            ```
+            rgb(red, green, blue)
+            color: #hexcode
+            ex:
+            color: rgb(244, 179, 63);
+            color: #00ffff;
+            ```
+            - RGB Alpha adds transparency 
+            ```
+            rgba(red, green, blue, transparency value)
+            ex: 
+            color: rgba(244, 179, 63, 0.7);
+            ```
+    - Adding border colors
+        - We can do this in shorthand by doing just 'border', or we can specify a direction
+            ```
+            .box {
+                border: 5px solid #1098ad;
+            }
+            or
+            .box {
+                border-top: 5px solid #1098ad;
+            }
+            ```
+    - Add background colors by using the 'background-color' property
+        ```
+        .main-header {
+            background-color: #f7f7f7;
         }
         ```
     - Adding background images
@@ -607,7 +675,6 @@ I'll keep things barebones for my own understanding while providing some referen
             display: none;
         }
         ```
-
 3. #### ***Flexbox***
     - Reference Guides:
         - https://darekkay.com/flexbox-cheatsheet/
@@ -871,8 +938,145 @@ I'll keep things barebones for my own understanding while providing some referen
                 justify-self: end;
             }
             ```
+### Section 5: Web Components and Layout Patterns
+1. #### ***Website Building Process***
+    - There are 4 stages that websites are typically built
+        1. Started by building elements first, like paragraphs, images, buttons, which will contain our actual content
+        2. Then we assemble these elements into common components like a card, pricing table, etc
+        3. Then we take all the components we designed, and use them to build a layout using common layout patterns
+        4. Finally, we take all our minor layouts and assemble a final webpage
+    - The most common elements, components, section components, and layout patterns
+        - Visual examples included Here: **put link here**
+        - Common Elements
+            - Text
+            - Buttons
+            - Images
+            - Input Elements
+            - Tags
+        - Common Components
+            - Breadcrumbs
+            - Pagination
+            - Alert and status bars
+            - Statistics
+            - Gallery
+            - Feature Box
+            - Preview and profile cards
+            - Accordion
+            - Tabs
+            - Carousel
+            - Customer testimonials
+            - Customer logos
+            - Featured-in logos
+            - Steps
+            - Forms
+            - Tables
+            - Pricing Tables
+            - Modal windows
+        - Common Section Components
+            - Navigation
+            - Hero Section
+            - Footer
+            - CTA section
+            - Feature row
+        - Common Layout Patterns
+            - Row of cards/boxes
+            - Grid of cards/boxes
+            - Z-pattern
+            - F-pattern
+            - Single-column
+            - Sidebar
+            - Multi-column/magazine
+            - Asymmetry/Experimental
+2. #### ***Accordion Component***
+    - This will construct an accordion component, however without the ability to open items unless we add javascript later
+    - Start by building a separate HTML doc; something like 01-accordion.html
+    - It's easiest to just add CSS style elements within the 1 small HTML page, so just add a style tag and put design elements inside
+        ```
+        <style>
+        </style>
+        ```
+    - Add some general styles wanted for the font, box sizing, etc
+        ```
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-### Section 5: Responsiveness
+        body {
+        font-family: sans-serif;
+        color: #343a40;
+        }
+        ```
+    - Then create a div class in the body
+    - Next add width and margin to the new div class. As an example: 
+        ```
+        .accordion {
+           width: 700px;
+           margin: 100px auto; 
+           background-color: grey;
+        }
+        ```
+    - Within that div, we need to create a new div that contains all items, current and future
+        ```
+        <div class="accordion">
+            <div class="item">
+            </div>
+        </div>
+        ```
+    - Next add a paragraph class, or two, if you want a numbering system next to the text
+        ```
+        <div class="accordion">
+            <p class="number">
+                02
+            </p>
+            <p class="test">
+                How long do I have to return my chair?
+            </p>
+        </div>
+        ```
+    - Get an icon for opening the accordion, like chevron-down, and copy svg, and paste it within the div after the paragraphs
+        - Change the class name for easier reference, if needed
+    - Then add a new div class for the text that will show once the box is opened on click. This should be within the original div and after the icon paste. For example:
+        ```
+        <div class="hidden-box">
+            <p>
+                Lorem ipsum 
+            </p>
+        </div>
+        ```
+    - We now have to add visual styles. Using the above example:
+        ```
+        .icon {
+            width: 24px; /* references icon suggested size*/
+            height: 24px;/* references icon suggested size*/
+            stroke: #087;
+        }
+
+        .number, .text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #087;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        ```
+    - As everything is in a horizontal, predictable layout, using flexbox is the easiest option. Apply this to the .item class
+        ```
+        display: flex;
+        flex-direction: column;
+        ```
+        - One note is that when switching flexbox direction to be column, all directional properties are reversed; align-items will be vertical instead of horizontal, for example
+
+
+
+
+
+
+
+
+
+### Section 6: Responsiveness
 1. #### ***Responsive Setup***
     - The first thing we need to do is include this line of code in the head element
         ```
@@ -915,8 +1119,7 @@ I'll keep things barebones for my own understanding while providing some referen
             background-size: cover;
         }
         ```
-
-### Section 6: Frameworks
+### Section 7: Frameworks
 1. #### ***Bootstrap***
     - The purpose of using things like Bootstrap is that modules of code are already built-out and you can search their database of what you are looking for
         - We don't even have to download the files if we don't want to. We can add their CDN (Content Delivery Network) css/js href link in our header. 
